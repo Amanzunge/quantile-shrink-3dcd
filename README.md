@@ -13,6 +13,15 @@ contains the first systematic study of that decision, benchmarking **seven thres
 calibration rules** across **six models**, **four datasets** and **22 model-dataset
 combinations**, plus the proposed per-cube rule.
 
+![Per-cube threshold calibration: pipeline and effect on a real scene](docs/graphical_abstract.png)
+
+*IndoorCD test room `190-3`, frozen RandLA-Net predictions. Thresholding each cube at its
+own shrunk conformal quantile instead of the global 0.5 raises change-class F1 from 0.611
+to 0.780 and cuts false alarms from 3,030 to 1,014 points. No panel is a mockup — every
+one is rendered from the released artefacts by `paper/graphical_abstract/`. This is a
+showcase scene; for the benchmark-wide picture, which is a rank win rather than a uniform
+one, see [Results](#results-at-a-glance).*
+
 ---
 
 ## The method
