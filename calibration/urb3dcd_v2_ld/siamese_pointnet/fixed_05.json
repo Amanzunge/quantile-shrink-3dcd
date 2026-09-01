@@ -1,0 +1,64 @@
+{
+  "method": "fixed_05",
+  "model": "siamese_pointnet",
+  "dataset": "urb3dcd_v2_ld",
+  "fitted_params": {
+    "tau": 0.5,
+    "scale": "score"
+  },
+  "per_scene": {
+    "Lyon": {
+      "split": "val",
+      "tau": 0.5,
+      "precision": 0.8297,
+      "recall": 0.6878,
+      "f1": 0.7521
+    },
+    "Lyon1": {
+      "split": "val",
+      "tau": 0.5,
+      "precision": 0.7753,
+      "recall": 0.5933,
+      "f1": 0.6722
+    },
+    "LyonS": {
+      "split": "test",
+      "tau": 0.5,
+      "precision": 0.6577,
+      "recall": 0.7683,
+      "f1": 0.7087
+    },
+    "LyonS3": {
+      "split": "test",
+      "tau": 0.5,
+      "precision": 0.8114,
+      "recall": 0.6501,
+      "f1": 0.7219
+    },
+    "LyonS4": {
+      "split": "test",
+      "tau": 0.5,
+      "precision": 0.71,
+      "recall": 0.6899,
+      "f1": 0.6998
+    }
+  },
+  "summary": {
+    "val_mean_f1": 0.7122,
+    "val_mean_p": 0.8025,
+    "val_mean_r": 0.6406,
+    "val_pooled": {
+      "precision": 0.8011,
+      "recall": 0.6362,
+      "f1": 0.7092
+    },
+    "test_mean_f1": 0.7101,
+    "test_mean_p": 0.7264,
+    "test_mean_r": 0.7028,
+    "test_pooled": {
+      "precision": 0.7343,
+      "recall": 0.6905,
+      "f1": 0.7118
+    }
+  }
+}

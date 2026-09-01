@@ -1,0 +1,46 @@
+# HKCD (Hong Kong Change Detection). Real-world validation. Outdoor PHOTOGRAMMETRIC.
+# Source: PGN3DCD, IEEE TGRS 2024 (DOI 10.1109/TGRS.2024.3436854), Wuhan U LIESMARS.
+# Single source of truth for paths and cube/FPS settings for this dataset.
+dataset_name: hkcd
+
+# Paths relative to the project root. Raw is downloaded and never edited.
+raw_root: data/raw/HKCD
+cache_root: data/cache/hkcd
+splits_file: data/splits/hkcd/splits.json
+
+# Cube pipeline settings. Outdoor cube extent = 50x50 (same as Urb3DCD LD/MS,
+# Section 4) so the three outdoor datasets stay comparable in the main table.
+cube_size_x: 50.0      # cube extent in metres along X
+cube_size_y: 50.0      # cube extent in metres along Y
+cube_size_z: full      # full Z extent, no vertical tiling
+# fps_native = 4096 for the MAIN HKCD runs. The density inventory (results/hkcd_inventory.csv)
+# gives a kept-cube median of ~16.4k (t0) / ~14.8k (t1), p10 ~5.5k/5.0k, so 4096 is pure
+# downsampling for essentially every cube (no upsampling, Section 5.1) and clears the Section 4
+# "median 4096+ pre-FPS" target with huge margin. It also matches MS, keeping the main table
+# comparable. 8192 (the per-cube native ceiling) was infeasible at 60 epochs on the Kaggle T4
+# (~1335 s/epoch for the lightest model -> >12 h), so it is demoted to a POINT in the Section 5.1
+# FPS sweep (run later via --out-root ablations/hkcd/fps at ABLATION_EPOCHS), not the main value.
+fps_native: 4096       # FPS target points per cube (feasible main value; 8192 -> FPS-sweep ablation)
+min_points: 256        # drop a cube with fewer than this in EITHER cloud
+
+# Raw PLY format, verified by reading the HKCD PLY headers + one full scene.
+# HKCD differs from Urb3DCD: element is 'vertex' (not 'params') and the change
+# label is 'cd_type' (not 'label_ch'). cd_type is ALREADY BINARY {0,1}
+# (0 = unchanged, 1 = change), so num_source_classes = 2 and the (label > 0)
+# binarisation in the Section 8 contract applies directly. Clouds also carry
+# red/green/blue (float 0..1) which this geometry-only pipeline ignores.
+ply_element: vertex    # PLY element name that holds the vertices
+label_field: cd_type   # scalar field on pointCloud1.ply holding the change label
+num_source_classes: 2  # binary already: class 0 unchanged, class 1 change
+
+# Grid (voxel) subsampling before FPS -- the dense-data training strategy of the
+# Siamese-KPConv / Urb3DCD / PGN3DCD lineage (first-subsampling dl0). HKCD photogrammetric
+# cubes hold ~15k points (median), and buildings add vertical voxel layers. Measured on the
+# densest (val) scene: dl0=1.5 m drops the median cube to ~2.8k points and makes ~70% of cubes
+# take-all (below fps_native -> FPS skipped), ~15x less FPS work than the raw cloud; train
+# scenes are lighter, so even more take-all. This shrinks only the MODEL INPUT; the full-
+# resolution cube is still kept for NN-propagation and the Section 8 contract. Only the
+# --gpu-fps path uses it. Alternatives if needed: 1.0 m (finer, field value, slower, only 27%
+# take-all) or 2.0 m (coarser, 91% take-all, fastest). Lower it if the post-training AUC gate
+# suffers. LD/MS omit this key, so they are unaffected.
+grid_subsample: 1.5    # voxel size in metres for the pre-FPS grid subsample (HKCD only)

@@ -1,0 +1,24 @@
+15:52:05 training: model=randla dataset=hkcd (fixed_n=False)
+15:52:05 device=cuda | epochs=60 batch=2 lr=0.001 cosine T_max=60 seed=42 workers=2
+15:52:05 recipe: Adam + CosineAnnealingLR, weighted CE, train/val FPS random (Section 7)
+15:52:05 cudnn nondeterminism left ON for speed (train FPS is random by design anyway)
+15:52:05 FPS device: model device (GPU-FPS, raw_mode loaders)
+15:52:05 grid subsample (dl0): 1.50 m before FPS (GPU-FPS only)
+15:52:05 class counts (train, full-res t1): unchanged=42744465 changed=4390743 total=47135208 change_ratio=0.0932
+15:52:05 class weights (balanced inverse freq, w=N/(2*n_c)): unchanged=0.551360 changed=5.367566
+15:52:05 NOTE: batch size 2 differs from the Section 7 default of 4 (document the reason)
+15:52:11 loaders: train cubes=2587 val cubes=180
+15:52:12 RESUMED from predictions/hkcd/randla/last.pt: completed epoch 52 -> continue at 53/60 (best val_f1=0.7000 @ep21)
+15:52:12 
+15:52:12 starting training... epochs 53..60  (stop after 8.50 h, then --resume)
+16:01:41 epoch 53/60 | train_loss=0.2210 | val F1@0.5=0.6854 | val bestF1=0.6861 @tau=0.55 | lr=3.32e-05 | 569.4s
+16:11:12 epoch 54/60 | train_loss=0.2162 | val F1@0.5=0.6862 | val bestF1=0.6883 @tau=0.60 | lr=2.45e-05 | 570.6s
+16:20:43 epoch 55/60 | train_loss=0.2169 | val F1@0.5=0.6801 | val bestF1=0.6835 @tau=0.60 | lr=1.70e-05 | 571.4s
+16:30:24 epoch 56/60 | train_loss=0.2174 | val F1@0.5=0.6793 | val bestF1=0.6825 @tau=0.60 | lr=1.09e-05 | 581.0s
+16:40:10 epoch 57/60 | train_loss=0.2162 | val F1@0.5=0.6808 | val bestF1=0.6828 @tau=0.60 | lr=6.16e-06 | 585.5s
+16:49:42 epoch 58/60 | train_loss=0.2169 | val F1@0.5=0.6796 | val bestF1=0.6836 @tau=0.60 | lr=2.74e-06 | 571.6s
+16:59:06 epoch 59/60 | train_loss=0.2145 | val F1@0.5=0.6807 | val bestF1=0.6843 @tau=0.60 | lr=6.85e-07 | 564.0s
+17:08:37 epoch 60/60 | train_loss=0.2153 | val F1@0.5=0.6828 | val bestF1=0.6852 @tau=0.55 | lr=0.00e+00 | 571.2s
+17:08:37 
+17:08:37 COMPLETE: 60/60 epochs. best epoch=21 val_f1=0.7000 (tau=0.55) -> predictions/hkcd/randla/best.pt
+17:08:37 Next: python src/predict.py --config configs/hkcd.yaml --model randla

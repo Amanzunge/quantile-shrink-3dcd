@@ -1,0 +1,21 @@
+# HKCD FPS-SWEEP ABLATION variant: identical to configs/hkcd.yaml but fps_native=8192.
+# 8192 is the per-cube native ceiling (kept-cube median ~15k), but it is too slow at 60
+# epochs on the Kaggle T4 (~1335 s/epoch for the lightest model), so the MAIN HKCD run uses
+# 4096 (configs/hkcd.yaml). This config exists for the Section 5.1 FPS sweep (Task 12), to be
+# run at ABLATION_EPOCHS with --out-root ablations/hkcd/fps so it does NOT touch the main
+# predictions/hkcd. Shares the FPS-agnostic cache, so no re-slicing is needed.
+dataset_name: hkcd
+
+raw_root: data/raw/HKCD
+cache_root: data/cache/hkcd          # SHARED fps-agnostic cache (no re-slice)
+splits_file: data/splits/hkcd/splits.json
+
+cube_size_x: 50.0
+cube_size_y: 50.0
+cube_size_z: full
+fps_native: 8192                     # native ceiling; ABLATION ONLY (main run = 4096)
+min_points: 256
+
+ply_element: vertex
+label_field: cd_type
+num_source_classes: 2

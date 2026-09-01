@@ -1,0 +1,30 @@
+{
+  "dataset": "urb3dcd_v2_ms",
+  "note": "Frozen official split from the IEEE Urb3DCD-V2 release folders. Entries are scene paths relative to raw_root; scene_id is the leaf name.",
+  "folder_map": {
+    "train": "Train",
+    "val": "Val",
+    "test": "Test"
+  },
+  "train": [
+    "Train/LyonN",
+    "Train/LyonN1",
+    "Train/LyonN11",
+    "Train/LyonN12",
+    "Train/LyonN14",
+    "Train/LyonN2",
+    "Train/LyonN3",
+    "Train/LyonN4",
+    "Train/LyonN5",
+    "Train/LyonN9"
+  ],
+  "val": [
+    "Val/Lyon",
+    "Val/Lyon1"
+  ],
+  "test": [
+    "Test/LyonS",
+    "Test/LyonS3",
+    "Test/LyonS4"
+  ]
+}

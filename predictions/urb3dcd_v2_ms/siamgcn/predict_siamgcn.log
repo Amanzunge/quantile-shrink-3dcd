@@ -1,0 +1,16 @@
+20:48:18 predict: model=siamgcn dataset=urb3dcd_v2_ms device=cuda (fixed_n=True)
+20:48:18 checkpoint=predictions/urb3dcd_v2_ms/siamgcn/best.pt (epoch=25 val_f1=0.4838)
+20:48:18 NN-propagation: per-cube nearest neighbour in centred metric space; scores=softmax(logits)[:,1]
+20:48:18 predict FPS regime: FIXED seed=42 (reproducible single pass, val + test)
+20:48:18 FPS device: model device (GPU-FPS, raw_mode loader)
+20:48:18 output dir: predictions/urb3dcd_v2_ms/siamgcn
+20:48:18 
+20:54:40 val  Lyon     N=4811917 (cache 4811917 OK) xcheck=4811917 chg=0.172 | AUC=0.757 F1@0.5=0.550 P=0.587 R=0.518
+20:54:44 val  Lyon1    N=4780917 (cache 4780917 OK) xcheck=4780917 chg=0.209 | AUC=0.660 F1@0.5=0.419 P=0.497 R=0.362
+21:06:39 test LyonS    N=6097648 (cache 6097648 OK) xcheck=6097648 chg=0.128 | AUC=0.698 F1@0.5=0.368 P=0.272 R=0.568
+21:06:44 test LyonS3   N=5997232 (cache 5997232 OK) xcheck=5997232 chg=0.248 | AUC=0.656 F1@0.5=0.467 P=0.452 R=0.482
+21:06:50 test LyonS4   N=6164882 (cache 6164882 OK) xcheck=6164882 chg=0.151 | AUC=0.694 F1@0.5=0.409 P=0.329 R=0.539
+21:06:50 
+21:06:50 Verifying Section 8 schema and N == sum(count_t1) on all written files...
+21:06:53 Schema + N + cross-checks passed for 5 scene files.
+21:06:53 Done.

@@ -1,0 +1,55 @@
+# IndoorCD. SCOPE-LIMIT evidence ONLY (CLAUDE.md Section 1). Indoor, room-scale.
+# This dataset exists to show the scale floor where the per-cube no-change
+# population collapses and the two-moment method is EXPECTED to fail. It is NOT a
+# primary benchmark; do not tune anything to make two_moment look good here.
+#
+# On disk IndoorCD is unlike the outdoor sets (.pcd binary_compressed clouds +
+# JSON 3D-box labels + multi-scan scenes), so src/convert_indoorcd.py first
+# converts it into the PLY pair layout this config points at (one folder per
+# (scan1, scanN) pair). After conversion the whole pipeline runs unchanged except
+# for 3D Z-tiling (cube_size_z below).
+dataset_name: indoorcd
+
+# Paths relative to the project root. raw_root is the CONVERTED PLY tree written
+# by src/convert_indoorcd.py (the original .pcd/.json live under data/raw/IndoorCD;
+# the converted name is deliberately distinct so it does not collide with the
+# source on case-insensitive filesystems like Windows).
+raw_root: data/raw/indoorcd_ply
+cache_root: data/cache/indoorcd
+splits_file: data/splits/indoorcd/splits.json
+
+# Cube pipeline settings. Room-scale cube extent from Section 4: 1.5 x 1.5 x 1.0 m.
+# Unlike the outdoor sets (full-Z columns), indoor cubes are bounded in Z, so the
+# grid is tiled vertically too. cube_size_z drives the 3D tiling in
+# inspect_dataset.cube_keys / preprocess_cubes.assign_cubes; rooms are ~1.9 m tall
+# (median), so a 1.0 m tile yields ~2 Z layers.
+cube_size_x: 1.5       # cube extent in metres along X
+cube_size_y: 1.5       # cube extent in metres along Y
+cube_size_z: 1.0       # cube extent in metres along Z (vertical tiling, indoor)
+# fps_native = 4096 is a CEILING (Section 4): cubes with <= 4096 points are taken
+# whole (no upsampling); denser cubes are FPS-downsampled. Room cubes are small in
+# extent but the clouds are dense (~87k pts/room median), so some cubes exceed 4096.
+fps_native: 4096       # FPS target points per cube (ceiling, never upsample)
+min_points: 256        # drop a cube with fewer than this in EITHER cloud (Section 6)
+
+# Converted PLY format (written by src/convert_indoorcd.py): element 'vertex',
+# fields x,y,z float32 on both clouds, plus an int32 'change' field on the t1
+# cloud (pointCloud1.ply). change is ALREADY BINARY {0,1} (1 = inside an annotated
+# Add/Remove change box), so num_source_classes = 2 and the (label > 0)
+# binarisation in the Section 8 contract applies directly.
+ply_element: vertex    # PLY element name that holds the vertices
+label_field: change    # scalar field on pointCloud1.ply holding the binary change label
+num_source_classes: 2  # binary already: class 0 unchanged, class 1 change
+
+# grid_subsample (dl0): ON for IndoorCD. The cube inventory shows the room-scale
+# cubes are actually DENSE (median ~11k points per 1.5 m cube; only ~25% take-all,
+# so ~75% would be FPS-downsampled every epoch), heavier than HKCD. The dense-data
+# voxel pre-subsample (CLAUDE.md Section 6 step 5) is therefore warranted. dl0 was
+# measured on real t1 cubes to mirror HKCD's regime (mostly take-all, healthy
+# density): at dl0=0.03 m the post-grid median is ~1.7k points with ~80% of cubes
+# falling below fps_native (FPS skipped), and the densest ~20% only FPS from ~5k to
+# 4096 (cheap). This makes 5-model x 60-epoch training feasible. It shrinks ONLY the
+# model input; the full-resolution cube is kept for NN-propagation and the Section 8
+# contract, so the cube counts / drop rate / per-cube no-change population that the
+# scope-limit study reports are unaffected.
+grid_subsample: 0.03   # voxel size in metres for the pre-FPS grid subsample (IndoorCD only)

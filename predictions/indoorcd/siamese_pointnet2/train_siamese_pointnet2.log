@@ -1,0 +1,20 @@
+10:10:23 training: model=siamese_pointnet2 dataset=indoorcd (fixed_n=True)
+10:10:23 device=cuda | epochs=60 batch=4 lr=0.001 cosine T_max=60 seed=42 workers=2
+10:10:23 recipe: Adam + CosineAnnealingLR, weighted CE, train/val FPS random (Section 7)
+10:10:23 cudnn nondeterminism left ON for speed (train FPS is random by design anyway)
+10:10:23 FPS device: model device (GPU-FPS, raw_mode loaders)
+10:10:23 grid subsample (dl0): 0.03 m before FPS (GPU-FPS only)
+10:10:23 class counts (train, full-res t1): unchanged=60191361 changed=1404887 total=61596248 change_ratio=0.0228
+10:10:23 class weights (balanced inverse freq, w=N/(2*n_c)): unchanged=0.511670 changed=21.922136
+10:11:02 loaders: train cubes=4461 val cubes=563
+10:11:08 RESUMED from predictions/indoorcd/siamese_pointnet2/last.pt: completed epoch 55 -> continue at 56/60 (best val_f1=0.4317 @ep43)
+10:11:08 
+10:11:08 starting training... epochs 56..60  (stop after 4.30 h, then --resume)
+10:26:19 epoch 56/60 | train_loss=0.1707 | val F1@0.5=0.1941 | val bestF1=0.3529 @tau=0.90 | lr=1.09e-05 | 910.9s
+10:41:39 epoch 57/60 | train_loss=0.1620 | val F1@0.5=0.1577 | val bestF1=0.3761 @tau=0.95 | lr=6.16e-06 | 920.1s
+10:56:44 epoch 58/60 | train_loss=0.1622 | val F1@0.5=0.1417 | val bestF1=0.3422 @tau=0.95 | lr=2.74e-06 | 905.1s
+11:11:47 epoch 59/60 | train_loss=0.1638 | val F1@0.5=0.1947 | val bestF1=0.3800 @tau=0.90 | lr=6.85e-07 | 903.2s
+11:26:53 epoch 60/60 | train_loss=0.1606 | val F1@0.5=0.1234 | val bestF1=0.4061 @tau=0.95 | lr=0.00e+00 | 905.6s
+11:26:53 
+11:26:53 COMPLETE: 60/60 epochs. best epoch=43 val_f1=0.4317 (tau=0.90) -> predictions/indoorcd/siamese_pointnet2/best.pt
+11:26:53 Next: python src/predict.py --config configs/indoorcd.yaml --model siamese_pointnet2

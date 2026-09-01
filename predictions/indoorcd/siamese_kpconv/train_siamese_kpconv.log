@@ -1,0 +1,54 @@
+21:21:45 training: model=siamese_kpconv dataset=indoorcd (fixed_n=False)
+21:21:45 device=cuda | epochs=60 batch=4 lr=0.001 cosine T_max=60 seed=42 workers=2
+21:21:45 recipe: Adam + CosineAnnealingLR, weighted CE, train/val FPS random (Section 7)
+21:21:45 cudnn nondeterminism left ON for speed (train FPS is random by design anyway)
+21:21:45 FPS device: model device (GPU-FPS, raw_mode loaders)
+21:21:45 grid subsample (dl0): 0.03 m before FPS (GPU-FPS only)
+21:21:45 class counts (train, full-res t1): unchanged=60191361 changed=1404887 total=61596248 change_ratio=0.0228
+21:21:45 class weights (balanced inverse freq, w=N/(2*n_c)): unchanged=0.511670 changed=21.922136
+21:22:21 loaders: train cubes=4461 val cubes=563
+21:22:29 RESUMED from predictions/indoorcd/siamese_kpconv/last.pt: completed epoch 21 -> continue at 22/60 (best val_f1=0.0499 @ep1)
+21:22:29 
+21:22:29 starting training... epochs 22..60  (stop after 11.00 h, then --resume)
+21:37:05 epoch 22/60 | train_loss=0.1472 | val F1@0.5=0.0263 | val bestF1=0.0305 @tau=0.05 | lr=7.03e-04 | 876.5s
+21:51:28 epoch 23/60 | train_loss=0.1473 | val F1@0.5=0.0289 | val bestF1=0.0292 @tau=0.10 | lr=6.79e-04 | 862.7s
+22:05:54 epoch 24/60 | train_loss=0.1409 | val F1@0.5=0.0303 | val bestF1=0.0306 @tau=0.65 | lr=6.55e-04 | 865.8s
+22:20:26 epoch 25/60 | train_loss=0.1303 | val F1@0.5=0.0311 | val bestF1=0.0319 @tau=0.20 | lr=6.29e-04 | 871.9s
+22:34:49 epoch 26/60 | train_loss=0.1259 | val F1@0.5=0.0280 | val bestF1=0.0283 @tau=0.05 | lr=6.04e-04 | 863.6s
+22:49:18 epoch 27/60 | train_loss=0.1210 | val F1@0.5=0.0314 | val bestF1=0.0319 @tau=0.20 | lr=5.78e-04 | 869.0s
+23:03:41 epoch 28/60 | train_loss=0.1150 | val F1@0.5=0.0321 | val bestF1=0.0332 @tau=0.20 | lr=5.52e-04 | 862.6s
+23:17:52 epoch 29/60 | train_loss=0.1095 | val F1@0.5=0.0290 | val bestF1=0.0292 @tau=0.65 | lr=5.26e-04 | 851.0s
+23:32:04 epoch 30/60 | train_loss=0.1057 | val F1@0.5=0.0298 | val bestF1=0.0312 @tau=0.15 | lr=5.00e-04 | 852.0s
+23:45:58 epoch 31/60 | train_loss=0.0985 | val F1@0.5=0.0258 | val bestF1=0.0268 @tau=0.05 | lr=4.74e-04 | 833.6s
+00:00:07 epoch 32/60 | train_loss=0.0992 | val F1@0.5=0.0225 | val bestF1=0.0270 @tau=0.05 | lr=4.48e-04 | 849.6s
+00:12:51 epoch 33/60 | train_loss=0.0915 | val F1@0.5=0.0233 | val bestF1=0.0288 @tau=0.05 | lr=4.22e-04 | 763.7s
+00:25:42 epoch 34/60 | train_loss=0.0909 | val F1@0.5=0.0247 | val bestF1=0.0266 @tau=0.05 | lr=3.96e-04 | 771.2s
+00:38:25 epoch 35/60 | train_loss=0.0868 | val F1@0.5=0.0254 | val bestF1=0.0293 @tau=0.05 | lr=3.71e-04 | 762.8s
+00:50:58 epoch 36/60 | train_loss=0.0817 | val F1@0.5=0.0176 | val bestF1=0.0191 @tau=0.05 | lr=3.45e-04 | 752.6s
+01:03:41 epoch 37/60 | train_loss=0.0812 | val F1@0.5=0.0261 | val bestF1=0.0272 @tau=0.05 | lr=3.21e-04 | 763.1s
+01:15:56 epoch 38/60 | train_loss=0.0755 | val F1@0.5=0.0297 | val bestF1=0.0298 @tau=0.30 | lr=2.97e-04 | 735.6s
+01:28:12 epoch 39/60 | train_loss=0.0731 | val F1@0.5=0.0227 | val bestF1=0.0269 @tau=0.05 | lr=2.73e-04 | 736.0s
+01:40:17 epoch 40/60 | train_loss=0.0701 | val F1@0.5=0.0152 | val bestF1=0.0200 @tau=0.05 | lr=2.50e-04 | 724.9s
+01:52:30 epoch 41/60 | train_loss=0.0679 | val F1@0.5=0.0168 | val bestF1=0.0192 @tau=0.05 | lr=2.28e-04 | 733.2s
+02:04:40 epoch 42/60 | train_loss=0.0645 | val F1@0.5=0.0251 | val bestF1=0.0279 @tau=0.05 | lr=2.06e-04 | 729.4s
+02:16:54 epoch 43/60 | train_loss=0.0645 | val F1@0.5=0.0273 | val bestF1=0.0291 @tau=0.05 | lr=1.85e-04 | 734.1s
+02:29:03 epoch 44/60 | train_loss=0.0641 | val F1@0.5=0.0140 | val bestF1=0.0180 @tau=0.05 | lr=1.65e-04 | 729.1s
+02:41:17 epoch 45/60 | train_loss=0.0621 | val F1@0.5=0.0169 | val bestF1=0.0190 @tau=0.05 | lr=1.46e-04 | 734.2s
+02:54:01 epoch 46/60 | train_loss=0.0595 | val F1@0.5=0.0213 | val bestF1=0.0221 @tau=0.15 | lr=1.28e-04 | 763.2s
+03:06:20 epoch 47/60 | train_loss=0.0576 | val F1@0.5=0.0147 | val bestF1=0.0169 @tau=0.05 | lr=1.11e-04 | 739.5s
+03:19:53 epoch 48/60 | train_loss=0.0573 | val F1@0.5=0.0113 | val bestF1=0.0121 @tau=0.05 | lr=9.55e-05 | 812.7s
+03:33:23 epoch 49/60 | train_loss=0.0560 | val F1@0.5=0.0146 | val bestF1=0.0172 @tau=0.05 | lr=8.07e-05 | 810.6s
+03:46:46 epoch 50/60 | train_loss=0.0556 | val F1@0.5=0.0144 | val bestF1=0.0158 @tau=0.05 | lr=6.70e-05 | 802.6s
+04:00:38 epoch 51/60 | train_loss=0.0539 | val F1@0.5=0.0134 | val bestF1=0.0154 @tau=0.05 | lr=5.45e-05 | 831.6s
+04:14:19 epoch 52/60 | train_loss=0.0546 | val F1@0.5=0.0133 | val bestF1=0.0150 @tau=0.05 | lr=4.32e-05 | 820.8s
+04:27:23 epoch 53/60 | train_loss=0.0531 | val F1@0.5=0.0128 | val bestF1=0.0154 @tau=0.05 | lr=3.32e-05 | 784.3s
+04:40:50 epoch 54/60 | train_loss=0.0530 | val F1@0.5=0.0216 | val bestF1=0.0217 @tau=0.60 | lr=2.45e-05 | 807.0s
+04:54:26 epoch 55/60 | train_loss=0.0515 | val F1@0.5=0.0083 | val bestF1=0.0087 @tau=0.05 | lr=1.70e-05 | 816.0s
+05:08:11 epoch 56/60 | train_loss=0.0522 | val F1@0.5=0.0149 | val bestF1=0.0186 @tau=0.05 | lr=1.09e-05 | 824.6s
+05:21:52 epoch 57/60 | train_loss=0.0519 | val F1@0.5=0.0113 | val bestF1=0.0142 @tau=0.05 | lr=6.16e-06 | 820.9s
+05:35:15 epoch 58/60 | train_loss=0.0522 | val F1@0.5=0.0087 | val bestF1=0.0115 @tau=0.05 | lr=2.74e-06 | 803.6s
+05:48:46 epoch 59/60 | train_loss=0.0516 | val F1@0.5=0.0137 | val bestF1=0.0169 @tau=0.05 | lr=6.85e-07 | 811.0s
+06:01:48 epoch 60/60 | train_loss=0.0508 | val F1@0.5=0.0076 | val bestF1=0.0104 @tau=0.05 | lr=0.00e+00 | 781.6s
+06:01:48 
+06:01:48 COMPLETE: 60/60 epochs. best epoch=1 val_f1=0.0499 (tau=0.70) -> predictions/indoorcd/siamese_kpconv/best.pt
+06:01:48 Next: python src/predict.py --config configs/indoorcd.yaml --model siamese_kpconv

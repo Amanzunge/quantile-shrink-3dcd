@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+message: "If you use this code or the released artefacts, please cite the paper below."
+title: "Quantile-Shrink: Distribution-Free Per-Cube Threshold Calibration for 3D Point Cloud Change Detection"
+type: software
+license: MIT
+authors:
+  - family-names: "Šeljmeši"
+    given-names: "Dalibor"
+    affiliation: "University of Novi Sad, Technical Faculty Mihajlo Pupin, Zrenjanin, Serbia"
+  - family-names: "Brtka"
+    given-names: "Vladimir"
+    affiliation: "University of Novi Sad, Technical Faculty Mihajlo Pupin, Zrenjanin, Serbia"
+  - family-names: "Ilić"
+    given-names: "Velibor"
+  - family-names: "Dobrilović"
+    given-names: "Dalibor"
+    affiliation: "University of Novi Sad, Technical Faculty Mihajlo Pupin, Zrenjanin, Serbia"
+  - family-names: "Brtka"
+    given-names: "Eleonora"
+    affiliation: "University of Novi Sad, Technical Faculty Mihajlo Pupin, Zrenjanin, Serbia"
+  - family-names: "Ognjenović"
+    given-names: "Višnja"
+    affiliation: "University of Novi Sad, Technical Faculty Mihajlo Pupin, Zrenjanin, Serbia"
+preferred-citation:
+  type: article
+  title: "Distribution-Free Per-Cube Threshold Calibration for Deep 3D Point Cloud Change Detection"
+  year: 2026
+  notes: "Under review. Update with journal, volume, pages and DOI on acceptance."
+  authors:
+    - family-names: "Šeljmeši"
+      given-names: "Dalibor"
+    - family-names: "Brtka"
+      given-names: "Vladimir"
+    - family-names: "Ilić"
+      given-names: "Velibor"
+    - family-names: "Dobrilović"
+      given-names: "Dalibor"
+    - family-names: "Brtka"
+      given-names: "Eleonora"
+    - family-names: "Ognjenović"
+      given-names: "Višnja"
+keywords:
+  - 3D point clouds
+  - change detection
+  - threshold calibration
+  - conformal prediction
+  - empirical-Bayes shrinkage

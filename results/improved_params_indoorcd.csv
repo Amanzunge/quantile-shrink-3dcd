@@ -1,0 +1,11 @@
+dataset,model,method,c,lambda,alpha,k,fallback_tau,val_fit_mean_f1
+indoorcd,randla,quantile,0.54,,0.925,,0.82,0.1901
+indoorcd,randla,quantile_shrink,0.54,,0.925,64.0,,0.1902
+indoorcd,siamese_kpconv,quantile,0.18,,1.0,,0.68,0.0907
+indoorcd,siamese_kpconv,quantile_shrink,0.18,,1.0,4096.0,,0.0908
+indoorcd,siamese_pointnet,quantile,0.44,,0.75,,0.84,0.1306
+indoorcd,siamese_pointnet,quantile_shrink,0.44,,0.75,4.0,,0.1306
+indoorcd,siamese_pointnet2,quantile,0.36,,0.99,,0.82,0.2245
+indoorcd,siamese_pointnet2,quantile_shrink,0.36,,0.99,0.0,,0.2245
+indoorcd,siamgcn,quantile,0.32,,0.97,,0.78,0.1345
+indoorcd,siamgcn,quantile_shrink,0.32,,0.97,64.0,,0.1345

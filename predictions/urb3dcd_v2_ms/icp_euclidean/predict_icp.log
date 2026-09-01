@@ -1,0 +1,15 @@
+16:24:34 ICP+Euclidean baseline (Task 4)
+16:24:34 dataset=urb3dcd_v2_ms raw_root=data/raw/urb3dcd_v2_ms cache_root=data/cache/urb3dcd_v2_ms
+16:24:34 frozen map: logits[:,1]=(d-D0)/S0, scores=sigmoid(.)  D0=1.120 m S0=0.560 m
+16:24:34 ICP: point-to-point, centered frame, max_corr=2.240 m, max_iter=50
+16:24:34 output dir: predictions\urb3dcd_v2_ms\icp_euclidean
+16:24:34 
+16:24:50 val  Lyon     N=4811917 (cache 4811917 OK) cubes=215 chg=0.172 | ICP fit med=0.871 min=0.441 | F1@0.5=0.471 P=0.316 R=0.928
+16:25:06 val  Lyon1    N=4780917 (cache 4780917 OK) cubes=214 chg=0.209 | ICP fit med=0.820 min=0.332 | F1@0.5=0.508 P=0.354 R=0.902
+16:25:25 test LyonS    N=6097648 (cache 6097648 OK) cubes=256 chg=0.128 | ICP fit med=0.911 min=0.556 | F1@0.5=0.379 P=0.236 R=0.961
+16:25:47 test LyonS3   N=5997232 (cache 5997232 OK) cubes=256 chg=0.248 | ICP fit med=0.782 min=0.332 | F1@0.5=0.564 P=0.405 R=0.927
+16:26:07 test LyonS4   N=6164882 (cache 6164882 OK) cubes=256 chg=0.151 | ICP fit med=0.877 min=0.514 | F1@0.5=0.419 P=0.270 R=0.932
+16:26:07 
+16:26:07 Verifying Section 8 schema and N == sum(count_t1) on all written files...
+16:26:11 Schema + N checks passed for 5 scene files.
+16:26:11 Done.

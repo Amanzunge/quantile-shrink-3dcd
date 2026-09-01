@@ -1,0 +1,53 @@
+{
+  "method": "platt",
+  "model": "randla",
+  "dataset": "hkcd",
+  "fitted_params": {
+    "A": 0.733211,
+    "B": -0.582365,
+    "scale": "calibrated_prob",
+    "decision_threshold": 0.5,
+    "equivalent_score_threshold": 0.6887
+  },
+  "per_scene": {
+    "11-NE-13D": {
+      "split": "val",
+      "tau": 0.5,
+      "precision": 0.8268,
+      "recall": 0.7357,
+      "f1": 0.7786
+    },
+    "11-NE-12B": {
+      "split": "test",
+      "tau": 0.5,
+      "precision": 0.8208,
+      "recall": 0.7924,
+      "f1": 0.8063
+    },
+    "11-NE-12C": {
+      "split": "test",
+      "tau": 0.5,
+      "precision": 0.5084,
+      "recall": 0.3738,
+      "f1": 0.4308
+    }
+  },
+  "summary": {
+    "val_mean_f1": 0.7786,
+    "val_mean_p": 0.8268,
+    "val_mean_r": 0.7357,
+    "val_pooled": {
+      "precision": 0.8268,
+      "recall": 0.7357,
+      "f1": 0.7786
+    },
+    "test_mean_f1": 0.6186,
+    "test_mean_p": 0.6646,
+    "test_mean_r": 0.5831,
+    "test_pooled": {
+      "precision": 0.7446,
+      "recall": 0.6677,
+      "f1": 0.7041
+    }
+  }
+}

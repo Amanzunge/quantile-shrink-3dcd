@@ -1,0 +1,13 @@
+dataset,model,method,c,lambda,alpha,k,fallback_tau,val_fit_mean_f1
+urb3dcd_v2_ms,icp_euclidean,quantile,0.38,,0.97,,0.88,0.7381
+urb3dcd_v2_ms,icp_euclidean,quantile_shrink,0.38,,0.97,0.0,,0.7381
+urb3dcd_v2_ms,randla,quantile,0.7,,0.5,,0.74,0.819
+urb3dcd_v2_ms,randla,quantile_shrink,0.7,,0.5,0.0,,0.819
+urb3dcd_v2_ms,siamese_kpconv,quantile,0.48,,0.97,,0.98,0.6941
+urb3dcd_v2_ms,siamese_kpconv,quantile_shrink,0.48,,0.97,0.0,,0.693
+urb3dcd_v2_ms,siamese_pointnet,quantile,-0.2,,0.5,,0.98,0.3271
+urb3dcd_v2_ms,siamese_pointnet,quantile_shrink,0.98,,0.5,0.0,,0.3271
+urb3dcd_v2_ms,siamese_pointnet2,quantile,0.34,,0.5,,0.34,0.7261
+urb3dcd_v2_ms,siamese_pointnet2,quantile_shrink,0.34,,0.5,1024.0,,0.7261
+urb3dcd_v2_ms,siamgcn,quantile,0.32,,0.5,,0.42,0.4899
+urb3dcd_v2_ms,siamgcn,quantile_shrink,0.32,,0.5,0.0,,0.4899

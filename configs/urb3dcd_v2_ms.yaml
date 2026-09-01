@@ -1,0 +1,22 @@
+# Urb3DCD-V2 Multi-Sensor (MS). Density ablation. Outdoor simulated.
+# Single source of truth for paths and cube/FPS settings for this dataset.
+dataset_name: urb3dcd_v2_ms
+
+# Paths relative to the project root. Raw is downloaded and never edited.
+raw_root: data/raw/urb3dcd_v2_ms
+cache_root: data/cache/urb3dcd_v2_ms
+splits_file: data/splits/urb3dcd_v2_ms/splits.json
+
+# Cube pipeline settings from Section 4 (frozen experiment matrix).
+cube_size_x: 50.0      # cube extent in metres along X
+cube_size_y: 50.0      # cube extent in metres along Y
+cube_size_z: full      # full Z extent, no vertical tiling
+fps_native: 4096       # FPS target points per cube (model native size for MS)
+min_points: 256        # drop a cube with fewer than this in EITHER cloud
+
+# Raw PLY format, verified from the dataset author's loader source.
+ply_element: params    # PLY element name that holds the vertices
+label_field: label_ch  # scalar field on pointCloud1.ply holding the change label
+# Source labels are multiclass 0..6; this project collapses them to binary
+# (0 = unchanged, any of 1..6 = change) per the Section 8 output contract.
+num_source_classes: 7

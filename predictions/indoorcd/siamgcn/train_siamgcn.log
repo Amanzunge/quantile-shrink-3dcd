@@ -1,0 +1,24 @@
+09:19:11 training: model=siamgcn dataset=indoorcd (fixed_n=True)
+09:19:11 device=cuda | epochs=60 batch=4 lr=0.001 cosine T_max=60 seed=42 workers=2
+09:19:11 recipe: Adam + CosineAnnealingLR, weighted CE, train/val FPS random (Section 7)
+09:19:11 cudnn nondeterminism left ON for speed (train FPS is random by design anyway)
+09:19:11 FPS device: model device (GPU-FPS, raw_mode loaders)
+09:19:11 grid subsample (dl0): 0.03 m before FPS (GPU-FPS only)
+09:19:11 class counts (train, full-res t1): unchanged=60191361 changed=1404887 total=61596248 change_ratio=0.0228
+09:19:11 class weights (balanced inverse freq, w=N/(2*n_c)): unchanged=0.511670 changed=21.922136
+09:19:55 loaders: train cubes=4461 val cubes=563
+09:20:00 RESUMED from predictions/indoorcd/siamgcn/last.pt: completed epoch 51 -> continue at 52/60 (best val_f1=0.2444 @ep29)
+09:20:00 
+09:20:00 starting training... epochs 52..60  (stop after 3.00 h, then --resume)
+09:38:18 epoch 52/60 | train_loss=0.2730 | val F1@0.5=0.0728 | val bestF1=0.1012 @tau=0.75 | lr=4.32e-05 | 1097.8s
+09:56:26 epoch 53/60 | train_loss=0.2635 | val F1@0.5=0.1129 | val bestF1=0.2029 @tau=0.85 | lr=3.32e-05 | 1087.7s
+10:14:57 epoch 54/60 | train_loss=0.2723 | val F1@0.5=0.0690 | val bestF1=0.0713 @tau=0.55 | lr=2.45e-05 | 1111.4s
+10:33:16 epoch 55/60 | train_loss=0.2634 | val F1@0.5=0.0656 | val bestF1=0.1354 @tau=0.95 | lr=1.70e-05 | 1098.3s
+10:51:22 epoch 56/60 | train_loss=0.2655 | val F1@0.5=0.0752 | val bestF1=0.1868 @tau=0.95 | lr=1.09e-05 | 1086.5s
+11:09:35 epoch 57/60 | train_loss=0.2653 | val F1@0.5=0.0803 | val bestF1=0.1870 @tau=0.95 | lr=6.16e-06 | 1092.3s
+11:27:50 epoch 58/60 | train_loss=0.2598 | val F1@0.5=0.1208 | val bestF1=0.1855 @tau=0.85 | lr=2.74e-06 | 1095.4s
+11:46:14 epoch 59/60 | train_loss=0.2608 | val F1@0.5=0.0710 | val bestF1=0.1763 @tau=0.95 | lr=6.85e-07 | 1103.9s
+12:04:30 epoch 60/60 | train_loss=0.2582 | val F1@0.5=0.0769 | val bestF1=0.1854 @tau=0.95 | lr=0.00e+00 | 1096.2s
+12:04:30 
+12:04:30 COMPLETE: 60/60 epochs. best epoch=29 val_f1=0.2444 (tau=0.90) -> predictions/indoorcd/siamgcn/best.pt
+12:04:30 Next: python src/predict.py --config configs/indoorcd.yaml --model siamgcn

@@ -1,0 +1,51 @@
+{
+  "method": "f1_optimal",
+  "model": "siamese_pointnet",
+  "dataset": "hkcd",
+  "fitted_params": {
+    "tau": 0.5,
+    "scale": "score",
+    "val_fit_mean_f1": 0.7283
+  },
+  "per_scene": {
+    "11-NE-13D": {
+      "split": "val",
+      "tau": 0.5,
+      "precision": 0.8189,
+      "recall": 0.6557,
+      "f1": 0.7283
+    },
+    "11-NE-12B": {
+      "split": "test",
+      "tau": 0.5,
+      "precision": 0.7675,
+      "recall": 0.6964,
+      "f1": 0.7302
+    },
+    "11-NE-12C": {
+      "split": "test",
+      "tau": 0.5,
+      "precision": 0.1457,
+      "recall": 0.3745,
+      "f1": 0.2098
+    }
+  },
+  "summary": {
+    "val_mean_f1": 0.7283,
+    "val_mean_p": 0.8189,
+    "val_mean_r": 0.6557,
+    "val_pooled": {
+      "precision": 0.8189,
+      "recall": 0.6557,
+      "f1": 0.7283
+    },
+    "test_mean_f1": 0.47,
+    "test_mean_p": 0.4566,
+    "test_mean_r": 0.5354,
+    "test_pooled": {
+      "precision": 0.4282,
+      "recall": 0.6005,
+      "f1": 0.4999
+    }
+  }
+}

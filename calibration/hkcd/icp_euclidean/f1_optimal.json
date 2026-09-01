@@ -1,0 +1,51 @@
+{
+  "method": "f1_optimal",
+  "model": "icp_euclidean",
+  "dataset": "hkcd",
+  "fitted_params": {
+    "tau": 0.98,
+    "scale": "score",
+    "val_fit_mean_f1": 0.7494
+  },
+  "per_scene": {
+    "11-NE-13D": {
+      "split": "val",
+      "tau": 0.98,
+      "precision": 0.7352,
+      "recall": 0.7642,
+      "f1": 0.7494
+    },
+    "11-NE-12B": {
+      "split": "test",
+      "tau": 0.98,
+      "precision": 0.6015,
+      "recall": 0.8412,
+      "f1": 0.7014
+    },
+    "11-NE-12C": {
+      "split": "test",
+      "tau": 0.98,
+      "precision": 0.3739,
+      "recall": 0.6523,
+      "f1": 0.4754
+    }
+  },
+  "summary": {
+    "val_mean_f1": 0.7494,
+    "val_mean_p": 0.7352,
+    "val_mean_r": 0.7642,
+    "val_pooled": {
+      "precision": 0.7352,
+      "recall": 0.7642,
+      "f1": 0.7494
+    },
+    "test_mean_f1": 0.5884,
+    "test_mean_p": 0.4877,
+    "test_mean_r": 0.7468,
+    "test_pooled": {
+      "precision": 0.5228,
+      "recall": 0.785,
+      "f1": 0.6276
+    }
+  }
+}

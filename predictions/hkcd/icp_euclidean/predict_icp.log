@@ -1,0 +1,13 @@
+23:05:55 ICP+Euclidean baseline (Task 4)
+23:05:55 dataset=hkcd raw_root=data/raw/HKCD cache_root=data/cache/hkcd
+23:05:55 frozen map: logits[:,1]=(d-D0)/S0, scores=sigmoid(.)  D0=0.291 m S0=0.145 m
+23:05:55 ICP: point-to-point, centered frame, max_corr=0.581 m, max_iter=50
+23:05:55 output dir: predictions\hkcd\icp_euclidean
+23:05:55 
+23:08:07 val  11-NE-13D N=4726996 (cache 4726996 OK) cubes=180 chg=0.278 | ICP fit med=0.715 min=0.034 | F1@0.5=0.575 P=0.418 R=0.917
+23:09:45 test 11-NE-12B N=4135853 (cache 4135853 OK) cubes=180 chg=0.126 | ICP fit med=0.729 min=0.155 | F1@0.5=0.369 P=0.229 R=0.960
+23:10:23 test 11-NE-12C N=2164973 (cache 2164973 OK) cubes=178 chg=0.102 | ICP fit med=0.728 min=0.198 | F1@0.5=0.263 P=0.153 R=0.935
+23:10:23 
+23:10:23 Verifying Section 8 schema and N == sum(count_t1) on all written files...
+23:10:25 Schema + N checks passed for 3 scene files.
+23:10:25 Done.

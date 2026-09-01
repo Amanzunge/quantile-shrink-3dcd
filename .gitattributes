@@ -1,0 +1,8 @@
+# Normalize line endings so the repo stays clean across Windows and Linux
+* text=auto eol=lf
+
+# Binary assets, never diffed or converted
+*.png binary
+*.npz binary
+*.pt binary
+*.pdf binary

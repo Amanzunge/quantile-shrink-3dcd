@@ -1,0 +1,17 @@
+method,source,target,model,status,is_primary,src_c,src_lambda,src_alpha,src_k,tgt_c,tgt_lambda,tgt_alpha,tgt_k,transferred_f1,refit_f1,gap,fixed_05_f1,f1_optimal_f1,oracle_f1,transferred_minus_f1opt,headroom,frac_headroom_kept
+quantile_shrink,urb3dcd_v2_ld,hkcd,icp_euclidean,valid,1,0.02,,1.0,1024.0,0.5,,0.999,1024.0,0.3243,0.6316,0.3073,0.3161,0.5884,0.628,-0.2641,0.0396,-6.6617
+quantile_shrink,urb3dcd_v2_ld,hkcd,siamese_pointnet,valid,1,0.12,,0.5,0.0,0.02,,0.97,64.0,0.3741,0.4693,0.0951,0.47,0.47,0.5299,-0.0959,0.0599,-1.6006
+quantile_shrink,urb3dcd_v2_ld,hkcd,siamese_pointnet2,valid,1,0.68,,0.6,4096.0,0.12,,1.0,0.0,0.6366,0.6512,0.0146,0.6341,0.6514,0.6786,-0.0148,0.0272,-0.5441
+quantile_shrink,urb3dcd_v2_ld,hkcd,siamese_kpconv,na_target_failed,1,0.42,,0.75,0.0,-0.14,,0.5,0.0,0.2079,0.1927,-0.0152,0.2281,0.2234,0.2837,-0.0155,0.0603,-0.2571
+quantile_shrink,urb3dcd_v2_ld,hkcd,siamgcn,valid,1,0.66,,0.5,4096.0,0.44,,0.85,256.0,0.5864,0.6071,0.0206,0.4829,0.586,0.7082,0.0004,0.1222,0.0036
+quantile_shrink,urb3dcd_v2_ms,hkcd,randla,valid,1,0.7,,0.5,0.0,0.04,,1.0,1024.0,0.4229,0.6153,0.1924,0.6103,0.6152,0.6849,-0.1923,0.0697,-2.7586
+quantile_shrink,urb3dcd_v2_ms,hkcd,icp_euclidean,valid,0,0.38,,0.97,0.0,0.5,,0.999,1024.0,0.487,0.6316,0.1446,0.3161,0.5884,0.628,-0.1014,0.0396,-2.5571
+quantile_shrink,urb3dcd_v2_ms,hkcd,siamese_pointnet,na_source_failed,0,0.98,,0.5,0.0,0.02,,0.97,64.0,0.0,0.4693,0.4693,0.47,0.47,0.5299,-0.47,0.0599,-7.8464
+quantile_shrink,urb3dcd_v2_ms,hkcd,siamese_pointnet2,valid,0,0.34,,0.5,1024.0,0.12,,1.0,0.0,0.6144,0.6512,0.0368,0.6341,0.6514,0.6786,-0.037,0.0272,-1.3588
+quantile_shrink,urb3dcd_v2_ms,hkcd,siamese_kpconv,na_target_failed,0,0.48,,0.97,0.0,-0.14,,0.5,0.0,0.2015,0.1927,-0.0089,0.2281,0.2234,0.2837,-0.0219,0.0603,-0.3624
+quantile_shrink,urb3dcd_v2_ms,hkcd,siamgcn,valid,0,0.32,,0.5,0.0,0.44,,0.85,256.0,0.4872,0.6071,0.1198,0.4829,0.586,0.7082,-0.0988,0.1222,-0.8085
+quantile_shrink,urb3dcd_v2_ld,urb3dcd_v2_ms,icp_euclidean,valid,0,0.02,,1.0,1024.0,0.38,,0.97,0.0,0.4724,0.7164,0.244,0.4541,0.7175,0.7279,-0.2451,0.0104,-23.5642
+quantile_shrink,urb3dcd_v2_ld,urb3dcd_v2_ms,siamese_pointnet,na_target_failed,0,0.12,,0.5,0.0,0.98,,0.5,0.0,0.2953,0.3028,0.0075,0.2953,0.3028,0.3236,-0.0075,0.0208,-0.3599
+quantile_shrink,urb3dcd_v2_ld,urb3dcd_v2_ms,siamese_pointnet2,valid,0,0.68,,0.6,4096.0,0.34,,0.5,1024.0,0.6463,0.6811,0.0348,0.6734,0.6808,0.7261,-0.0345,0.0453,-0.761
+quantile_shrink,urb3dcd_v2_ld,urb3dcd_v2_ms,siamese_kpconv,valid,0,0.42,,0.75,0.0,0.48,,0.97,0.0,0.514,0.6939,0.1798,0.3451,0.6822,0.7152,-0.1682,0.033,-5.1016
+quantile_shrink,urb3dcd_v2_ld,urb3dcd_v2_ms,siamgcn,valid,0,0.66,,0.5,4096.0,0.32,,0.5,0.0,0.4012,0.4284,0.0273,0.4145,0.4051,0.4517,-0.0039,0.0466,-0.0844

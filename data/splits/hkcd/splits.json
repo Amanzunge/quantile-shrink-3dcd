@@ -1,0 +1,33 @@
+{
+  "dataset": "hkcd",
+  "note": "Frozen OFFICIAL split from the HKCD (PGN3DCD, IEEE TGRS 2024) release folders Train/Val/Test. Entries are scene paths relative to raw_root; scene_id is the leaf name (a Hong Kong 1:1000 map-sheet tile). 15 train / 1 val / 2 test. Never resplit (CLAUDE.md Section 7).",
+  "folder_map": {
+    "train": "Train",
+    "val": "Val",
+    "test": "Test"
+  },
+  "train": [
+    "Train/11-NE-11A",
+    "Train/11-NE-11B",
+    "Train/11-NE-11C",
+    "Train/11-NE-11D",
+    "Train/11-NE-12A",
+    "Train/11-NE-12D",
+    "Train/11-NE-1B",
+    "Train/11-NE-1D",
+    "Train/11-NE-6A",
+    "Train/11-NE-6B",
+    "Train/11-NE-6C",
+    "Train/11-NE-6D",
+    "Train/11-NE-7A",
+    "Train/11-NE-7C",
+    "Train/11-NE-7D"
+  ],
+  "val": [
+    "Val/11-NE-13D"
+  ],
+  "test": [
+    "Test/11-NE-12B",
+    "Test/11-NE-12C"
+  ]
+}

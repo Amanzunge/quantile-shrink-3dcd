@@ -1,0 +1,13 @@
+dataset,value,is_main,cube_extent_m,median_cubes_per_scene,total_kept_cubes,pct_zero_change_cubes,cube_drop_pct
+urb3dcd_v2_ld,25,0,25,411.0,7866,16.9,25.5
+urb3dcd_v2_ld,50,1,50,140.0,2582,2.9,9.8
+urb3dcd_v2_ld,75,0,75,70.0,1256,1.4,8.8
+urb3dcd_v2_ms,25,0,25,452.0,8545,15.4,19.3
+urb3dcd_v2_ms,50,1,50,142.0,2603,3.0,9.4
+urb3dcd_v2_ms,75,0,75,70.0,1260,1.4,8.5
+hkcd,25,0,25,703.0,11981,38.6,3.8
+hkcd,50,1,50,180.0,3125,14.6,0.3
+hkcd,75,0,75,80.0,1403,4.5,0.4
+indoorcd,1.0,0,1.0,11.0,10715,83.5,26.1
+indoorcd,1.5,1,1.5,7.0,6353,78.4,23.9
+indoorcd,2.0,0,2.0,4.0,4732,74.3,24.0

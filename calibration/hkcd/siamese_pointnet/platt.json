@@ -1,0 +1,53 @@
+{
+  "method": "platt",
+  "model": "siamese_pointnet",
+  "dataset": "hkcd",
+  "fitted_params": {
+    "A": 1.081555,
+    "B": -0.910906,
+    "scale": "calibrated_prob",
+    "decision_threshold": 0.5,
+    "equivalent_score_threshold": 0.6989
+  },
+  "per_scene": {
+    "11-NE-13D": {
+      "split": "val",
+      "tau": 0.5,
+      "precision": 0.9055,
+      "recall": 0.5624,
+      "f1": 0.6939
+    },
+    "11-NE-12B": {
+      "split": "test",
+      "tau": 0.5,
+      "precision": 0.8494,
+      "recall": 0.6351,
+      "f1": 0.7268
+    },
+    "11-NE-12C": {
+      "split": "test",
+      "tau": 0.5,
+      "precision": 0.2256,
+      "recall": 0.1509,
+      "f1": 0.1808
+    }
+  },
+  "summary": {
+    "val_mean_f1": 0.6939,
+    "val_mean_p": 0.9055,
+    "val_mean_r": 0.5624,
+    "val_pooled": {
+      "precision": 0.9055,
+      "recall": 0.5624,
+      "f1": 0.6939
+    },
+    "test_mean_f1": 0.4538,
+    "test_mean_p": 0.5375,
+    "test_mean_r": 0.393,
+    "test_pooled": {
+      "precision": 0.6778,
+      "recall": 0.4909,
+      "f1": 0.5694
+    }
+  }
+}

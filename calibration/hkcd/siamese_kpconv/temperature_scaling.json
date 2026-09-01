@@ -1,0 +1,53 @@
+{
+  "method": "temperature_scaling",
+  "model": "siamese_kpconv",
+  "dataset": "hkcd",
+  "fitted_params": {
+    "T": 20.0,
+    "tau": 0.04,
+    "scale": "calibrated_prob",
+    "equivalent_score_threshold": 0.0,
+    "val_fit_mean_f1": 0.4393
+  },
+  "per_scene": {
+    "11-NE-13D": {
+      "split": "val",
+      "tau": 0.04,
+      "precision": 0.2816,
+      "recall": 0.9983,
+      "f1": 0.4393
+    },
+    "11-NE-12B": {
+      "split": "test",
+      "tau": 0.04,
+      "precision": 0.1287,
+      "recall": 0.9981,
+      "f1": 0.228
+    },
+    "11-NE-12C": {
+      "split": "test",
+      "tau": 0.04,
+      "precision": 0.0916,
+      "recall": 0.8453,
+      "f1": 0.1653
+    }
+  },
+  "summary": {
+    "val_mean_f1": 0.4393,
+    "val_mean_p": 0.2816,
+    "val_mean_r": 0.9983,
+    "val_pooled": {
+      "precision": 0.2816,
+      "recall": 0.9983,
+      "f1": 0.4393
+    },
+    "test_mean_f1": 0.1967,
+    "test_mean_p": 0.1102,
+    "test_mean_r": 0.9217,
+    "test_pooled": {
+      "precision": 0.1163,
+      "recall": 0.9526,
+      "f1": 0.2073
+    }
+  }
+}

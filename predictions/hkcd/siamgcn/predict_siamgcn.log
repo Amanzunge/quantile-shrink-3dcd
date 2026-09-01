@@ -1,0 +1,15 @@
+09:32:47 predict: model=siamgcn dataset=hkcd device=cuda (fixed_n=True)
+09:32:47 checkpoint=predictions/hkcd/siamgcn/best.pt (epoch=60 val_f1=0.6724)
+09:32:47 NN-propagation: per-cube nearest neighbour in centred metric space; scores=softmax(logits)[:,1]
+09:32:47 predict FPS regime: FIXED seed=42 (reproducible single pass, val + test)
+09:32:47 FPS device: model device (GPU-FPS, raw_mode loader)
+09:32:47 grid subsample (dl0): 1.50 m before FPS (GPU-FPS only)
+09:32:47 output dir: predictions/hkcd/siamgcn
+09:32:47 
+09:35:32 val  11-NE-13D N=4726996 (cache 4726996 OK) xcheck=4726996 chg=0.278 | AUC=0.913 F1@0.5=0.751 P=0.701 R=0.808
+09:39:31 test 11-NE-12B N=4135853 (cache 4135853 OK) xcheck=4135853 chg=0.126 | AUC=0.965 F1@0.5=0.671 P=0.533 R=0.906
+09:39:33 test 11-NE-12C N=2164973 (cache 2164973 OK) xcheck=2164973 chg=0.102 | AUC=0.753 F1@0.5=0.295 P=0.185 R=0.728
+09:39:33 
+09:39:33 Verifying Section 8 schema and N == sum(count_t1) on all written files...
+09:39:35 Schema + N + cross-checks passed for 3 scene files.
+09:39:35 Done.

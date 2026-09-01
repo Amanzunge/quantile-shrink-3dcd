@@ -1,0 +1,22 @@
+08:05:24 training: model=siamgcn dataset=hkcd (fixed_n=True)
+08:05:24 device=cuda | epochs=60 batch=4 lr=0.001 cosine T_max=60 seed=42 workers=2
+08:05:24 recipe: Adam + CosineAnnealingLR, weighted CE, train/val FPS random (Section 7)
+08:05:24 cudnn nondeterminism left ON for speed (train FPS is random by design anyway)
+08:05:24 FPS device: model device (GPU-FPS, raw_mode loaders)
+08:05:24 grid subsample (dl0): 1.50 m before FPS (GPU-FPS only)
+08:05:24 class counts (train, full-res t1): unchanged=42744465 changed=4390743 total=47135208 change_ratio=0.0932
+08:05:24 class weights (balanced inverse freq, w=N/(2*n_c)): unchanged=0.551360 changed=5.367566
+08:05:30 loaders: train cubes=2587 val cubes=180
+08:05:31 RESUMED from predictions/hkcd/siamgcn/last.pt: completed epoch 53 -> continue at 54/60 (best val_f1=0.6650 @ep47)
+08:05:31 
+08:05:31 starting training... epochs 54..60  (stop after 1.50 h, then --resume)
+08:16:47 epoch 54/60 | train_loss=0.2655 | val F1@0.5=0.4983 | val bestF1=0.6301 @tau=0.85 | lr=2.45e-05 | 676.3s
+08:28:16 epoch 55/60 | train_loss=0.2646 | val F1@0.5=0.4107 | val bestF1=0.6104 @tau=0.90 | lr=1.70e-05 | 689.0s
+08:39:53 epoch 56/60 | train_loss=0.2631 | val F1@0.5=0.4708 | val bestF1=0.6260 @tau=0.90 | lr=1.09e-05 | 696.6s
+08:51:36 epoch 57/60 | train_loss=0.2583 | val F1@0.5=0.4653 | val bestF1=0.6320 @tau=0.85 | lr=6.16e-06 | 703.4s
+09:03:03 epoch 58/60 | train_loss=0.2659 | val F1@0.5=0.5440 | val bestF1=0.6557 @tau=0.85 | lr=2.74e-06 | 686.5s
+09:14:32 epoch 59/60 | train_loss=0.2611 | val F1@0.5=0.4164 | val bestF1=0.6314 @tau=0.90 | lr=6.85e-07 | 689.2s
+09:26:04 epoch 60/60 | train_loss=0.2603 | val F1@0.5=0.6247 | val bestF1=0.6724 @tau=0.80 | lr=0.00e+00 | 692.2s
+09:26:04 
+09:26:04 COMPLETE: 60/60 epochs. best epoch=60 val_f1=0.6724 (tau=0.80) -> predictions/hkcd/siamgcn/best.pt
+09:26:04 Next: python src/predict.py --config configs/hkcd.yaml --model siamgcn

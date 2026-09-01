@@ -1,0 +1,60 @@
+{
+  "method": "isotonic",
+  "model": "siamese_kpconv",
+  "dataset": "hkcd",
+  "fitted_params": {
+    "scale": "calibrated_prob",
+    "decision_threshold": 0.5,
+    "equivalent_score_threshold": 1.0,
+    "n_knots": 2,
+    "knots_x": [
+      0.0,
+      1.0
+    ],
+    "knots_y": [
+      0.2783,
+      0.2783
+    ]
+  },
+  "per_scene": {
+    "11-NE-13D": {
+      "split": "val",
+      "tau": 0.5,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "11-NE-12B": {
+      "split": "test",
+      "tau": 0.5,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "11-NE-12C": {
+      "split": "test",
+      "tau": 0.5,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    }
+  },
+  "summary": {
+    "val_mean_f1": 0.0,
+    "val_mean_p": 0.0,
+    "val_mean_r": 0.0,
+    "val_pooled": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "test_mean_f1": 0.0,
+    "test_mean_p": 0.0,
+    "test_mean_r": 0.0,
+    "test_pooled": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    }
+  }
+}

@@ -1,0 +1,15 @@
+17:09:05 predict: model=randla dataset=hkcd device=cuda (fixed_n=False)
+17:09:05 checkpoint=predictions/hkcd/randla/best.pt (epoch=21 val_f1=0.7000)
+17:09:05 NN-propagation: per-cube nearest neighbour in centred metric space; scores=softmax(logits)[:,1]
+17:09:05 predict FPS regime: FIXED seed=42 (reproducible single pass, val + test)
+17:09:05 FPS device: model device (GPU-FPS, raw_mode loader)
+17:09:05 grid subsample (dl0): 1.50 m before FPS (GPU-FPS only)
+17:09:05 output dir: predictions/hkcd/randla
+17:09:05 
+17:11:56 val  11-NE-13D N=4726996 (cache 4726996 OK) xcheck=4726996 chg=0.278 | AUC=0.921 F1@0.5=0.788 P=0.769 R=0.808
+17:15:40 test 11-NE-12B N=4135853 (cache 4135853 OK) xcheck=4135853 chg=0.126 | AUC=0.967 F1@0.5=0.795 P=0.745 R=0.854
+17:15:42 test 11-NE-12C N=2164973 (cache 2164973 OK) xcheck=2164973 chg=0.102 | AUC=0.786 F1@0.5=0.425 P=0.376 R=0.489
+17:15:42 
+17:15:42 Verifying Section 8 schema and N == sum(count_t1) on all written files...
+17:15:43 Schema + N + cross-checks passed for 3 scene files.
+17:15:43 Done.

@@ -1,0 +1,55 @@
+# ---------------------------------------------------------------------------
+# Large binary artefacts. These are the frozen prediction/checkpoint files.
+# Too large for GitHub (predictions 13 GB, ablations 45 GB) -> archived on
+# Zenodo instead. The .log files next to them ARE tracked, as run provenance.
+# ---------------------------------------------------------------------------
+*.npz
+*.pt
+*.pth
+*.ckpt
+
+# ---------------------------------------------------------------------------
+# Datasets. Licensed by their original providers, never redistributed here.
+# data/splits/*.json IS tracked: the frozen splits are needed to reproduce runs.
+# ---------------------------------------------------------------------------
+data/raw/
+data/cache/
+
+# ---------------------------------------------------------------------------
+# Manuscript. Held back until the paper is accepted; the reference PDFs are
+# publisher copyright and must never be published. Delete the paper/ line
+# after acceptance if you want the figures and build script in the repo.
+# ---------------------------------------------------------------------------
+paper/
+
+# ---------------------------------------------------------------------------
+# Cluster runbook: contains an internal host address and account name of the
+# National Platform for AI. Not ours to publish.
+# ---------------------------------------------------------------------------
+fmle/
+
+# ---------------------------------------------------------------------------
+# Local agent/editor state and the project instruction file
+# ---------------------------------------------------------------------------
+.claude/
+CLAUDE.md
+
+# ---------------------------------------------------------------------------
+# Python environment and caches
+# ---------------------------------------------------------------------------
+threshold_env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# ---------------------------------------------------------------------------
+# OS and editor noise
+# ---------------------------------------------------------------------------
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/

@@ -1,0 +1,17 @@
+19:46:22 training: model=siamese_pointnet dataset=hkcd (fixed_n=True)
+19:46:22 device=cuda | epochs=60 batch=4 lr=0.001 cosine T_max=60 seed=42 workers=2
+19:46:22 recipe: Adam + CosineAnnealingLR, weighted CE, train/val FPS random (Section 7)
+19:46:22 cudnn nondeterminism left ON for speed (train FPS is random by design anyway)
+19:46:22 FPS device: model device (GPU-FPS, raw_mode loaders)
+19:46:22 grid subsample (dl0): 1.50 m before FPS (GPU-FPS only)
+19:46:22 class counts (train, full-res t1): unchanged=42744465 changed=4390743 total=47135208 change_ratio=0.0932
+19:46:22 class weights (balanced inverse freq, w=N/(2*n_c)): unchanged=0.551360 changed=5.367566
+19:46:29 loaders: train cubes=2587 val cubes=180
+19:46:30 RESUMED from predictions/hkcd/siamese_pointnet/last.pt: completed epoch 58 -> continue at 59/60 (best val_f1=0.6109 @ep16)
+19:46:30 
+19:46:30 starting training... epochs 59..60  (stop after 7.50 h, then --resume)
+19:53:56 epoch 59/60 | train_loss=0.3625 | val F1@0.5=0.5585 | val bestF1=0.5655 @tau=0.55 | lr=6.85e-07 | 446.4s
+20:01:33 epoch 60/60 | train_loss=0.3556 | val F1@0.5=0.5693 | val bestF1=0.5704 @tau=0.55 | lr=0.00e+00 | 456.2s
+20:01:33 
+20:01:33 COMPLETE: 60/60 epochs. best epoch=16 val_f1=0.6109 (tau=0.50) -> predictions/hkcd/siamese_pointnet/best.pt
+20:01:33 Next: python src/predict.py --config configs/hkcd.yaml --model siamese_pointnet

@@ -1,0 +1,53 @@
+{
+  "method": "platt",
+  "model": "siamgcn",
+  "dataset": "hkcd",
+  "fitted_params": {
+    "A": 0.66071,
+    "B": -1.141865,
+    "scale": "calibrated_prob",
+    "decision_threshold": 0.5,
+    "equivalent_score_threshold": 0.8492
+  },
+  "per_scene": {
+    "11-NE-13D": {
+      "split": "val",
+      "tau": 0.5,
+      "precision": 0.9009,
+      "recall": 0.6874,
+      "f1": 0.7798
+    },
+    "11-NE-12B": {
+      "split": "test",
+      "tau": 0.5,
+      "precision": 0.8297,
+      "recall": 0.7744,
+      "f1": 0.8011
+    },
+    "11-NE-12C": {
+      "split": "test",
+      "tau": 0.5,
+      "precision": 0.379,
+      "recall": 0.4718,
+      "f1": 0.4203
+    }
+  },
+  "summary": {
+    "val_mean_f1": 0.7798,
+    "val_mean_p": 0.9009,
+    "val_mean_r": 0.6874,
+    "val_pooled": {
+      "precision": 0.9009,
+      "recall": 0.6874,
+      "f1": 0.7798
+    },
+    "test_mean_f1": 0.6107,
+    "test_mean_p": 0.6043,
+    "test_mean_r": 0.6231,
+    "test_pooled": {
+      "precision": 0.6669,
+      "recall": 0.6843,
+      "f1": 0.6755
+    }
+  }
+}
