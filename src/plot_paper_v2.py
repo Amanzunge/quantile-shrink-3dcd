@@ -138,7 +138,7 @@ def fig_head_to_head(f1):
     despine(ax)
 
     fig.tight_layout(w_pad=1.8)
-    fig.savefig(os.path.join(OUT, "fig_head_to_head.png"), dpi=220, bbox_inches="tight")
+    fig.savefig(os.path.join(OUT, "fig_head_to_head.png"), dpi=600, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -181,13 +181,15 @@ def fig_forest():
     ax.set_xlabel("change in test mean per-scene F1  (quantile-shrink minus tuned global threshold)",
                   fontsize=8.6)
     ax.set_title("Where per-cube calibration helps, and by how much\n"
-                 "coloured = significant at p < 0.05 (paired bootstrap over test cubes); "
-                 "grey = indistinguishable", fontsize=9.2, color=INK)
+                 "colored = nominally significant at uncorrected p < 0.05 "
+                 "(paired bootstrap over test cubes);\n"
+                 "gray = indistinguishable from the tuned global threshold",
+                 fontsize=9.2, color=INK)
     ax.grid(axis="x", color=GRID, lw=0.7, zorder=0)
     ax.set_axisbelow(True)
     despine(ax)
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, "fig_forest.png"), dpi=220, bbox_inches="tight")
+    fig.savefig(os.path.join(OUT, "fig_forest.png"), dpi=600, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -245,7 +247,7 @@ def fig_signal_bound():
     despine(ax)
 
     fig.tight_layout(w_pad=2.2)
-    fig.savefig(os.path.join(OUT, "fig_signal_bound.png"), dpi=220, bbox_inches="tight")
+    fig.savefig(os.path.join(OUT, "fig_signal_bound.png"), dpi=600, bbox_inches="tight")
     plt.close(fig)
     best = max(max(float(r["linreg_cv_r2_bothsides"]), float(r["rf_cv_r2_bothsides"]))
                for r in reg_rows)

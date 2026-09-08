@@ -168,7 +168,7 @@ def fig_cube_example():
     ax.legend(frameon=False, fontsize=8, loc="upper left")
     despine(ax)
     fig.tight_layout()
-    fig.savefig("results/fig_paper_cube_example.png", dpi=200)
+    fig.savefig("results/fig_paper_cube_example.png", dpi=600)
     plt.close(fig)
     print("example %s cube %d: tau_global %.3f  tau_ours %.3f  tau_oracle %.3f" % (
         model, cube, tau_global, tau_qs_cube, tau_oracle))
