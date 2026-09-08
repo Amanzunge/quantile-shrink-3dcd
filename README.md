@@ -7,8 +7,8 @@ Code, calibration outputs and result tables for the paper:
 > Under review. `[DOI to be added on acceptance]`
 
 Deep Siamese networks for bi-temporal 3D change detection produce a per-point change
-score, and then almost universally compare it against **one global threshold** — usually
-0.5 — even though local score distributions vary strongly across a scene. This repository
+score, and then almost universally compare it against **one global threshold**, usually
+0.5, even though local score distributions vary strongly across a scene. This repository
 contains the first systematic study of that decision, benchmarking **seven threshold
 calibration rules** across **six models**, **four datasets** and **22 model-dataset
 combinations**, plus the proposed per-cube rule.
@@ -17,7 +17,7 @@ combinations**, plus the proposed per-cube rule.
 
 *IndoorCD test room `190-3`, frozen RandLA-Net predictions. Thresholding each cube at its
 own shrunk conformal quantile instead of the global 0.5 raises change-class F1 from 0.611
-to 0.780 and cuts false alarms from 3,030 to 1,014 points. No panel is a mockup — every
+to 0.780 and cuts false alarms from 3,030 to 1,014 points. No panel is a mockup; every
 one is rendered from the released artefacts by `paper/graphical_abstract/`. This is a
 showcase scene; for the benchmark-wide picture, which is a rank win rather than a uniform
 one, see [Results](#results-at-a-glance).*
@@ -45,7 +45,7 @@ involved at test time; the rule costs one sort of each cube's scores.
 
 As `k -> infinity` every cube collapses onto the scene quantile, so the tuned global
 threshold is a limiting case of this family. That is why the honest headline is a
-**rank win, not a uniform win** — see [Results](#results-at-a-glance).
+**rank win, not a uniform win**; see [Results](#results-at-a-glance).
 
 No Chamfer distance is used anywhere. Only model output scores and logits.
 
@@ -76,7 +76,7 @@ archive plus this code. Nothing requires a GPU unless you retrain from scratch.
 Reproducing the results needs the prediction archive, not the raw datasets.
 
 ```bash
-git clone https://github.com/<user>/quantile-shrink-3dcd.git && cd quantile-shrink-3dcd
+git clone https://github.com/Amanzunge/quantile-shrink-3dcd.git && cd quantile-shrink-3dcd
 ```
 
 ```bash
@@ -140,6 +140,7 @@ python src/plot_paper_v2.py
 | `build_scope_limit_table.py` | `scope_limit_table.csv`, the IndoorCD scale floor |
 | `build_ablation_tables.py` | `ablation_fps.csv`, `ablation_cube.csv`, `ablation_cube_geometry.csv` |
 | `estimator_autopsy.py` | `estimator_autopsy.csv`, split-half headroom analysis |
+| `sensitivity.py` | `sensitivity_table.csv`, how sharply the result depends on `(c, alpha, k)` |
 | `plot_paper_v2.py`, `plot_ablations.py` | all figures in `results/` |
 
 ---
@@ -219,6 +220,7 @@ src/
   transfer_v2.py        cross-dataset parameter transfer
   paper_stats.py        paired bootstrap CIs, Wilcoxon tests, IoU table
   estimator_autopsy.py  split-half headroom, oracle-threshold regression
+  sensitivity.py        flatness of the validation optimum, shared-parameter check
   plot_*.py             every figure in the paper
 predictions/<dataset>/<model>/       best.pt, per-scene .npz, run logs
 calibration/<dataset>/<model>/       per-scene tau and metrics, five standard rules
@@ -265,20 +267,21 @@ Reported as mean per-scene change-class F1 on test scenes.
 - **Against rules that do not tune a threshold on validation data** (fixed 0.5, Platt,
   isotonic, per-cube Otsu): 17 to 19 wins of 22.
 - **Against the tuned global threshold**: 8 wins, 12 ties, 2 losses at a 0.002 tie band.
-  Wilcoxon p = 0.079 over the benchmark — a trend, **not** a significant global win. Seven
+  Wilcoxon p = 0.079 over the benchmark: a trend, **not** a significant global win. Seven
   individual combinations are significantly positive by paired bootstrap, concentrated on
   the real photogrammetric data (HKCD ICP +0.043, pooled change-IoU 0.457 -> 0.536;
   HKCD SiamGCN +0.021) and on miscalibrated models (MS SiamGCN +0.023, MS KPConv +0.012).
-- **Per-cube Otsu collapses** where naive local adaptivity is dangerous — change-sparse
+- **Per-cube Otsu collapses** where naive local adaptivity is dangerous, on change-sparse
   cubes whose histogram it splits anyway (up to -0.29 F1). Local thresholds need both the
   validation-fitted offset and the shrinkage.
 - **Parameters do not transfer** across datasets: 15 of 16 source-target-model triples
   land below the target's own tuned global threshold. This is a per-dataset procedure
   needing a labelled validation split, not a transferable constant.
-- **The ceiling is characterised, not just the method.** Per-cube oracle headroom is real
-  under split-half validation (66-99% retained on HKCD) and grows as cubes shrink
+- **The ceiling is characterized, not just the method.** Per-cube oracle headroom is real
+  under split-half validation (48-73% retained on LD, 68-98% on MS, 66-102% on HKCD,
+  84-102% on IndoorCD) and grows as cubes shrink
   (LD PointNet +0.037 / +0.056 / +0.111 at 75 / 50 / 25 m), yet label-free per-cube
-  statistics predict the oracle threshold poorly (R^2 <= 0.4). IndoorCD marks the scale
+  statistics predict the oracle threshold poorly (R^2 <= 0.43). IndoorCD marks the scale
   floor where the per-cube population collapses (median 7 cubes per scene, 78% of cubes
   holding no change at all) and local calibration stops paying.
 
@@ -291,9 +294,9 @@ own licence.
 
 | Dataset | Source | Notes |
 |---|---|---|
-| Urb3DCD-V2 (LD + MS) | IEEE DataPort, de Gélis et al. — [10.3390/rs13132629](https://doi.org/10.3390/rs13132629) | login-gated; one archive holds both variants |
-| HKCD | Zhan et al., PGN3DCD — [10.1109/TGRS.2024.3436854](https://doi.org/10.1109/TGRS.2024.3436854) | ~128M annotated points, ~8.1 km² of Hong Kong |
-| IndoorCD | Ciceklidag et al., IEEE DataPort — [10.21227/vhfk-vq69](https://doi.org/10.21227/vhfk-vq69) | converted to PLY by `src/convert_indoorcd.py` |
+| Urb3DCD-V2 (LD + MS) | IEEE DataPort, de Gélis et al., [10.3390/rs13132629](https://doi.org/10.3390/rs13132629) | login-gated; one archive holds both variants |
+| HKCD | Zhan et al., PGN3DCD, [10.1109/TGRS.2024.3436854](https://doi.org/10.1109/TGRS.2024.3436854) | ~128M annotated points, ~8.1 km² of Hong Kong |
+| IndoorCD | Ciceklidag et al., IEEE DataPort, [10.21227/vhfk-vq69](https://doi.org/10.21227/vhfk-vq69) | converted to PLY by `src/convert_indoorcd.py` |
 
 The frozen splits under `data/splits/` are what make runs comparable; HKCD uses the
 official split published with the dataset, and the IndoorCD split is generated once by
@@ -309,9 +312,9 @@ Analysis is CPU-only and runs on any machine. Python 3.10, packages pinned in
 Training used two environments, both at the identical 60-epoch recipe:
 
 - **National Platform for Artificial Intelligence**, Government Data Centre, Kragujevac,
-  Serbia — NVIDIA A100-SXM4 40 GB, one GPU per job, NGC PyTorch 23.08 container, SLURM.
+  Serbia. NVIDIA A100-SXM4 40 GB, one GPU per job, NGC PyTorch 23.08 container, SLURM.
   All 66 ablation runs, ~77 hours wall clock with heavy concurrency.
-- Cloud GPU instances with NVIDIA Tesla T4 16 GB — the 19 main benchmark runs,
+- Cloud GPU instances with NVIDIA Tesla T4 16 GB, for the 19 main benchmark runs,
   1 to 18 hours per run (median ~6).
 
 ---
@@ -321,7 +324,7 @@ Training used two environments, both at the identical 60-epoch recipe:
 ```bibtex
 @article{seljmesi2026quantileshrink,
   title   = {Distribution-Free Per-Cube Threshold Calibration for Deep 3D Point Cloud Change Detection},
-  author  = {{\v S}eljme{\v s}i, Dalibor and Brtka, Vladimir and Ili{\'c}, Velibor and
+  author  = {{\v S}eljme{\v s}i, Dalibor and Ili{\'c}, Velibor and Brtka, Vladimir and
              Dobrilovi{\'c}, Dalibor and Brtka, Eleonora and Ognjenovi{\'c}, Vi{\v s}nja},
   year    = {2026},
   note    = {Under review}

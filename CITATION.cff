@@ -3,15 +3,25 @@ message: "If you use this code or the released artefacts, please cite the paper 
 title: "Quantile-Shrink: Distribution-Free Per-Cube Threshold Calibration for 3D Point Cloud Change Detection"
 type: software
 license: MIT
+repository-code: "https://github.com/Amanzunge/quantile-shrink-3dcd"
+url: "https://github.com/Amanzunge/quantile-shrink-3dcd"
+abstract: >-
+  Code, frozen calibration outputs and result tables for a systematic study of
+  decision-threshold calibration in cube-tiled 3D point cloud change detection:
+  seven calibration rules, six detection models and four datasets under one frozen
+  protocol, plus quantile-shrink, a per-cube threshold built from the conformal-rank
+  quantile of each cube's predicted no-change scores and shrunk toward the
+  scene-level quantile with an empirical-Bayes weight.
 authors:
   - family-names: "Šeljmeši"
     given-names: "Dalibor"
     affiliation: "University of Novi Sad, Technical Faculty Mihajlo Pupin, Zrenjanin, Serbia"
+  - family-names: "Ilić"
+    given-names: "Velibor"
+    affiliation: "Institute for Artificial Intelligence Research and Development of Serbia, Novi Sad, Serbia"
   - family-names: "Brtka"
     given-names: "Vladimir"
     affiliation: "University of Novi Sad, Technical Faculty Mihajlo Pupin, Zrenjanin, Serbia"
-  - family-names: "Ilić"
-    given-names: "Velibor"
   - family-names: "Dobrilović"
     given-names: "Dalibor"
     affiliation: "University of Novi Sad, Technical Faculty Mihajlo Pupin, Zrenjanin, Serbia"
@@ -29,10 +39,10 @@ preferred-citation:
   authors:
     - family-names: "Šeljmeši"
       given-names: "Dalibor"
-    - family-names: "Brtka"
-      given-names: "Vladimir"
     - family-names: "Ilić"
       given-names: "Velibor"
+    - family-names: "Brtka"
+      given-names: "Vladimir"
     - family-names: "Dobrilović"
       given-names: "Dalibor"
     - family-names: "Brtka"
