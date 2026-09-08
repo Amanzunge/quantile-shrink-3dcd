@@ -2,7 +2,7 @@
 
 Code, calibration outputs and result tables for the paper:
 
-> D. Šeljmeši, V. Brtka, V. Ilić, D. Dobrilović, E. Brtka, V. Ognjenović.
+> D. Šeljmeši, V. Ilić, V. Brtka, D. Dobrilović, E. Brtka, V. Ognjenović.
 > *Distribution-Free Per-Cube Threshold Calibration for Deep 3D Point Cloud Change Detection.*
 > Under review. `[DOI to be added on acceptance]`
 
