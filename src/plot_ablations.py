@@ -110,6 +110,7 @@ def plot_geometry_boundary():
     style(ax2, which="both")
     fig.tight_layout()
     fig.savefig("results/fig_cube_geometry_boundary.png", dpi=600)
+    fig.savefig("results/fig_cube_geometry_boundary.pdf")
     plt.close(fig)
     print("wrote results/fig_cube_geometry_boundary.png")
 
@@ -227,6 +228,7 @@ def plot_gain_vs_headroom_scatter():
     ax.legend(frameon=False, fontsize=8)
     fig.tight_layout()
     fig.savefig("results/fig_gain_vs_headroom_scatter.png", dpi=600)
+    fig.savefig("results/fig_gain_vs_headroom_scatter.pdf")
     plt.close(fig)
     print("wrote results/fig_gain_vs_headroom_scatter.png")
 

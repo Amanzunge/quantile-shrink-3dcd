@@ -235,6 +235,7 @@ def fig_qualitative():
                bbox_to_anchor=(0.5, -0.01))
     fig.tight_layout(rect=[0, 0.04, 1, 1])
     fig.savefig(os.path.join(OUT, "fig_qualitative_hkcd.png"), dpi=600, bbox_inches="tight")
+    fig.savefig(os.path.join(OUT, "fig_qualitative_hkcd.pdf"), dpi=600, bbox_inches="tight")
     plt.close(fig)
     print("qualitative: scene %s  global F1 %.4f -> ours %.4f" % (
         scene, fo["per_scene"][scene]["f1"], qs["per_scene"][scene]["f1"]))

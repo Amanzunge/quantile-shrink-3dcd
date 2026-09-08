@@ -139,6 +139,7 @@ def fig_head_to_head(f1):
 
     fig.tight_layout(w_pad=1.8)
     fig.savefig(os.path.join(OUT, "fig_head_to_head.png"), dpi=600, bbox_inches="tight")
+    fig.savefig(os.path.join(OUT, "fig_head_to_head.pdf"), bbox_inches="tight")
     plt.close(fig)
 
 
@@ -190,6 +191,7 @@ def fig_forest():
     despine(ax)
     fig.tight_layout()
     fig.savefig(os.path.join(OUT, "fig_forest.png"), dpi=600, bbox_inches="tight")
+    fig.savefig(os.path.join(OUT, "fig_forest.pdf"), bbox_inches="tight")
     plt.close(fig)
 
 
@@ -248,10 +250,75 @@ def fig_signal_bound():
 
     fig.tight_layout(w_pad=2.2)
     fig.savefig(os.path.join(OUT, "fig_signal_bound.png"), dpi=600, bbox_inches="tight")
+    fig.savefig(os.path.join(OUT, "fig_signal_bound.pdf"), bbox_inches="tight")
     plt.close(fig)
     best = max(max(float(r["linreg_cv_r2_bothsides"]), float(r["rf_cv_r2_bothsides"]))
                for r in reg_rows)
     print("best R^2 over %d combos: %.3f" % (len(reg_rows), best))
+
+
+def fig_sensitivity():
+    """(a) the validation optimum is broad and the test result moves little inside it;
+    (b) alpha and k can be shared across every pair, only the offset c needs refitting."""
+    rows = list(csv.DictReader(open("results/sensitivity_table.csv", newline="")))
+    rows.sort(key=lambda r: (DS_ORDER.index(r["dataset"]), MODEL_ORDER.index(r["model"])))
+    fig, axes = plt.subplots(1, 2, figsize=(7.2, 4.0))
+
+    # --- (a) the same candidates, measured against the tuned global threshold -----
+    # Plotting the difference (not the absolute F1) puts every combination on one
+    # scale and makes the zero line the thing the text actually compares against.
+    ax = axes[0]
+    for i, r in enumerate(rows):
+        g = float(r["test_global"])
+        lo, hi = float(r["test_near_p05"]) - g, float(r["test_near_p95"]) - g
+        color = DS_COLOR[r["dataset"]]
+        ax.plot([lo, hi], [i, i], color=color, lw=3.0, alpha=0.40, solid_capstyle="round",
+                zorder=2)
+        ax.scatter([float(r["test_deployed"]) - g], [i], s=24, color=color, zorder=4,
+                   edgecolor="white", linewidth=0.5)
+    ax.axvline(0.0, color=INK, lw=1.0, zorder=3)
+    ax.set_yticks(range(len(rows)))
+    ax.set_yticklabels(["%s %s" % (DS_SHORT[r["dataset"]], MODEL_LABEL[r["model"]])
+                        for r in rows], fontsize=6.4)
+    ax.invert_yaxis()
+    ax.set_xlim(-0.09, 0.09)
+    ax.set_xlabel("test F1 minus the tuned global threshold", fontsize=8.4)
+    ax.set_title("(a)  the validation optimum is broad", fontsize=9.3, color=INK, loc="left")
+    handles = [plt.Line2D([], [], color=SOFT, lw=3.0, alpha=0.5,
+                          label="candidates within 0.01 val F1 (5-95%)"),
+               plt.Line2D([], [], marker="o", ls="", ms=4.5, color=SOFT, label="deployed fit"),
+               plt.Line2D([], [], color=INK, lw=1.0, label="tuned global threshold")]
+    ax.legend(handles=handles, frameon=False, fontsize=6.6, ncol=1,
+              loc="upper center", bbox_to_anchor=(0.5, -0.16))
+    ax.grid(axis="x", color=GRID, lw=0.7, zorder=0)
+    ax.set_axisbelow(True)
+    despine(ax)
+
+    # --- (b) sharing alpha and k across every model and dataset ------------------
+    ax = axes[1]
+    lo = min(float(r["test_shared"]) for r in rows) - 0.04
+    hi = max(float(r["test_shared"]) for r in rows) + 0.04
+    ax.plot([lo, hi], [lo, hi], ls="--", color=SOFT, lw=1.1, zorder=2,
+            label="identical")
+    for ds in DS_ORDER:
+        xs = [float(r["test_deployed"]) for r in rows if r["dataset"] == ds]
+        ys = [float(r["test_shared"]) for r in rows if r["dataset"] == ds]
+        ax.scatter(xs, ys, s=30, color=DS_COLOR[ds], edgecolor="white", linewidth=0.6,
+                   zorder=3, label=DS_SHORT[ds])
+    ax.set_xlim(lo, hi)
+    ax.set_ylim(lo, hi)
+    ax.set_xlabel("all three scalars fitted per pair", fontsize=8.4)
+    ax.set_ylabel("$\\alpha$ and $k$ shared, only $c$ refitted", fontsize=8.4)
+    ax.set_title("(b)  only the offset needs refitting", fontsize=9.3, color=INK, loc="left")
+    ax.legend(frameon=False, fontsize=7.0, loc="upper left")
+    ax.grid(color=GRID, lw=0.7, zorder=0)
+    ax.set_axisbelow(True)
+    despine(ax)
+
+    fig.tight_layout(w_pad=2.0)
+    fig.savefig(os.path.join(OUT, "fig_sensitivity.png"), dpi=600, bbox_inches="tight")
+    fig.savefig(os.path.join(OUT, "fig_sensitivity.pdf"), bbox_inches="tight")
+    plt.close(fig)
 
 
 def main():
@@ -260,7 +327,8 @@ def main():
     fig_head_to_head(f1)
     fig_forest()
     fig_signal_bound()
-    print("wrote paper/figures/fig_{head_to_head,forest,signal_bound}.png")
+    fig_sensitivity()
+    print("wrote paper/figures/fig_{head_to_head,forest,signal_bound,sensitivity}.png")
 
 
 if __name__ == "__main__":
