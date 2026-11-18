@@ -1,5 +1,5 @@
 """
-plot_presubmission.py - The three NEW paper figures (draft v1), written to paper/figures/:
+plot_presubmission.py - The qualitative HKCD scene figure (paper Fig. 6), written to results/paper_figures/:
 
   fig_cd_diagram.png        Demsar critical-difference diagram: mean rank of the six
                             paper methods + the otsu_cube baseline over the 22
@@ -8,7 +8,7 @@ plot_presubmission.py - The three NEW paper figures (draft v1), written to paper
   fig_qualitative_hkcd.png  One HKCD test scene, error map under the tuned global
                             threshold vs the per-cube quantile_shrink threshold.
 
-Also copies the three REUSED figures from results/ into paper/figures/.
+Also copies the three REUSED figures from results/ into results/paper_figures/.
 
 Torch-free, local CPU:  python src/plot_presubmission.py
 """
@@ -37,7 +37,7 @@ METHODS7 = ["fixed_05", "platt", "isotonic", "temperature_scaling", "f1_optimal"
 plt.rcParams.update({"font.size": 9, "axes.edgecolor": SOFT, "axes.labelcolor": INK,
                      "xtick.color": SOFT, "ytick.color": SOFT, "figure.facecolor": "white"})
 
-OUT = os.path.join("paper", "figures")
+OUT = os.path.join("results", "paper_figures")
 
 
 def read_f1():
@@ -199,11 +199,11 @@ def fig_qualitative():
     pred_q = scores > tau_cube[inv]
 
     rng = np.random.default_rng(42)
-    fig, axes = plt.subplots(1, 2, figsize=(10.6, 5.0), sharex=True, sharey=True)
+    fig, axes = plt.subplots(1, 2, figsize=(6.3, 3.35), sharex=True, sharey=True)
     xy = coords[:, :2] - coords[:, :2].mean(axis=0)       # centre for readable axes
-    for ax, pred, name, f1v in [(axes[0], pred_g, "tuned global threshold (f1_optimal)",
+    for ax, pred, name, f1v in [(axes[0], pred_g, "tuned global threshold",
                                  fo["per_scene"][scene]["f1"]),
-                                (axes[1], pred_q, "per-cube quantile_shrink (ours)",
+                                (axes[1], pred_q, "per-cube quantile-shrink (ours)",
                                  qs["per_scene"][scene]["f1"])]:
         tn = ~pred & (labels == 0)
         tp = pred & (labels == 1)
@@ -211,31 +211,31 @@ def fig_qualitative():
         fn = ~pred & (labels == 1)
         # Background: subsample the (dominant) true-negative points hard.
         for mask, color, size, cap, label in [
-                (tn, "#e3e2de", 0.25, 250000, None),
-                (tp, "#9ec5f4", 0.35, 250000, "true positive"),
-                (fp, "#eda100", 0.45, 250000, "false positive"),
-                (fn, "#c9366b", 0.45, 250000, "false negative")]:
+                (tn, "#e3e2de", 0.09, 250000, None),
+                (tp, "#9ec5f4", 0.12, 250000, "true positive"),
+                (fp, "#eda100", 0.16, 250000, "false positive"),
+                (fn, "#c9366b", 0.16, 250000, "false negative")]:
             idx = np.where(mask)[0]
             if len(idx) > cap:
                 idx = rng.choice(idx, cap, replace=False)
             ax.scatter(xy[idx, 0], xy[idx, 1], s=size, c=color, marker=".",
                        linewidths=0, rasterized=True, label=label)
         ax.set_title("%s\nscene %s, change F1 = %.3f" % (name, scene, f1v),
-                     fontsize=9.5, color=INK)
+                     fontsize=8.6, color=INK)
         ax.set_aspect("equal")
-        ax.set_xlabel("x (m)")
-        ax.tick_params(labelsize=7.5)
+        ax.set_xlabel("x (m)", fontsize=8.6)
+        ax.tick_params(labelsize=8.2)
         for sp in ("top", "right"):
             ax.spines[sp].set_visible(False)
-    axes[0].set_ylabel("y (m)")
-    handles = [plt.Line2D([], [], marker="o", ls="", ms=6, color=c, label=l)
+    axes[0].set_ylabel("y (m)", fontsize=8.6)
+    handles = [plt.Line2D([], [], marker="o", ls="", ms=5, color=c, label=l)
                for c, l in [("#9ec5f4", "true positive"), ("#eda100", "false positive"),
                             ("#c9366b", "false negative"), ("#e3e2de", "true negative")]]
-    fig.legend(handles=handles, frameon=False, ncol=4, loc="lower center", fontsize=8.5,
+    fig.legend(handles=handles, frameon=False, ncol=4, loc="lower center", fontsize=8.6,
                bbox_to_anchor=(0.5, -0.01))
     fig.tight_layout(rect=[0, 0.04, 1, 1])
-    fig.savefig(os.path.join(OUT, "fig_qualitative_hkcd.png"), dpi=600, bbox_inches="tight")
-    fig.savefig(os.path.join(OUT, "fig_qualitative_hkcd.pdf"), dpi=600, bbox_inches="tight")
+    fig.savefig(os.path.join(OUT, "fig_qualitative_hkcd.png"), dpi=1000, bbox_inches="tight")
+    fig.savefig(os.path.join(OUT, "fig_qualitative_hkcd.pdf"), dpi=1000, bbox_inches="tight")
     plt.close(fig)
     print("qualitative: scene %s  global F1 %.4f -> ours %.4f" % (
         scene, fo["per_scene"][scene]["f1"], qs["per_scene"][scene]["f1"]))
@@ -266,16 +266,13 @@ def fig_equations():
 
 def main():
     os.makedirs(OUT, exist_ok=True)
-    fig_equations()
-    f1 = read_f1()
-    fig_cd_diagram(f1)
-    fig_method_schematic()
     fig_qualitative()
-    # Reused figures, copied so paper/ is self-contained.
-    for name in ["fig_paper_cube_example.png", "fig_gain_vs_headroom_scatter.png",
-                 "fig_cube_geometry_boundary.png"]:
+    # Paper figures that other scripts write to results/, copied so results/paper_figures/
+    # holds the complete set. (fig_equations, fig_cd_diagram and fig_method_schematic are
+    # draft-era figures that are no longer in the paper; the functions are kept for reference.)
+    for name in ["fig_paper_cube_example.png", "fig_gain_vs_headroom_scatter.png"]:
         shutil.copy(os.path.join("results", name), os.path.join(OUT, name))
-    print("wrote 3 new + copied 3 reused figures into paper/figures/")
+    print("wrote fig_qualitative_hkcd + copied 2 reused figures into results/paper_figures/")
 
 
 if __name__ == "__main__":

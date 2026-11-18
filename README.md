@@ -13,14 +13,13 @@ contains the first systematic study of that decision, benchmarking **seven thres
 calibration rules** across **six models**, **four datasets** and **22 model-dataset
 combinations**, plus the proposed per-cube rule.
 
-![Per-cube threshold calibration: pipeline and effect on a real scene](docs/graphical_abstract.png)
+![Per-combination change in test F1 of quantile-shrink against the tuned global threshold](results/paper_figures/fig_forest.png)
 
-*IndoorCD test room `190-3`, frozen RandLA-Net predictions. Thresholding each cube at its
-own shrunk conformal quantile instead of the global 0.5 raises change-class F1 from 0.611
-to 0.780 and cuts false alarms from 3,030 to 1,014 points. No panel is a mockup; every
-one is rendered from the released artefacts by `paper/graphical_abstract/`. This is a
-showcase scene; for the benchmark-wide picture, which is a rank win rather than a uniform
-one, see [Results](#results-at-a-glance).*
+*Change in test mean per-scene change-class F1 of the proposed rule relative to a
+validation-tuned global threshold, for every model-dataset combination, with paired
+bootstrap 95% intervals over test cubes. Colored = nominally significant at p < 0.05.
+The benchmark-wide picture is a rank win, not a uniform one; see
+[Results](#results-at-a-glance).*
 
 ---
 
@@ -43,9 +42,15 @@ scenes by exhaustive grid search (61 x 14 x 7 = 5,978 candidates) maximizing mea
 per-scene change-class F1. No labels, no retraining and no architectural change are
 involved at test time; the rule costs one sort of each cube's scores.
 
-As `k -> infinity` every cube collapses onto the scene quantile, so the tuned global
-threshold is a limiting case of this family. That is why the honest headline is a
-**rank win, not a uniform win**; see [Results](#results-at-a-glance).
+As `k -> infinity` every cube collapses onto the scene quantile, so a scene-level global
+threshold is a limiting case of this family, and a single tuned global threshold differs
+from it only by the between-scene variation of that quantile. That is why the honest
+headline is a **rank win, not a uniform win**; see [Results](#results-at-a-glance).
+
+The tuned global threshold and temperature scaling sweep the same 59-point grid: 0.02 to
+0.98 in steps of 0.02 plus ten tail points down to 0.001 and up to 0.9999, so that an
+optimum in the saturated tail of a score distribution (the ICP baseline on HKCD sits at
+0.9995) is not capped by the grid.
 
 No Chamfer distance is used anywhere. Only model output scores and logits.
 
@@ -59,7 +64,7 @@ The full artefact set is 70 GB, which does not belong on GitHub. The split is:
 |---|---|---|
 | Source code, configs, frozen splits | this repo | ~1 MB |
 | Per-scene calibration outputs (176 JSON) | this repo, `calibration/`, `calibration_v2/` | ~5 MB |
-| All result tables and paper figures | this repo, `results/` | ~3 MB |
+| All result tables and paper figures | this repo, `results/`, `results/paper_figures/` | ~5 MB |
 | Training and inference logs (47 runs) | this repo, next to each model | ~350 KB |
 | **Frozen per-scene predictions** (1,263 `.npz`) | Zenodo `[DOI to be added]` | 13 GB |
 | **Ablation predictions** (2,666 `.npz`) | Zenodo `[DOI to be added]` | 45 GB |
@@ -100,9 +105,11 @@ python src/calibrate_otsu.py --config configs/urb3dcd_v2_ld.yaml
 ```
 
 Repeat for `urb3dcd_v2_ms.yaml`, `hkcd.yaml` and `indoorcd.yaml`. This rewrites
-`results/main_table.csv` (132 rows = 6 rules x 22 combinations),
-`results/improved_methods_table.csv` and `results/otsu_baseline_table.csv`, and refreshes
-every JSON under `calibration/` and `calibration_v2/`.
+`results/main_table.csv` (the five standard rules plus quantile-shrink, 22 combinations
+each), `results/improved_methods_table.csv` and `results/otsu_baseline_table.csv`, and
+refreshes every JSON under `calibration/` and `calibration_v2/`. `calibrate.py` also
+writes the retired two-moment ablation (`two_moment.json`, `two_moment_params_*.csv`),
+which `estimator_autopsy.py` reads and the paper tables ignore.
 
 Then build the derived tables and figures:
 
@@ -127,8 +134,34 @@ python src/build_ablation_tables.py --sweep cube
 ```
 
 ```bash
+python src/estimator_autopsy.py --config configs/urb3dcd_v2_ld.yaml
+```
+
+```bash
+python src/sensitivity.py
+```
+
+```bash
 python src/plot_paper_v2.py
 ```
+
+```bash
+python src/plot_presubmission.py
+```
+
+```bash
+python src/plot_paper.py
+```
+
+```bash
+python src/plot_ablations.py
+```
+
+```bash
+python src/plot_method_concept.py
+```
+
+(`estimator_autopsy.py` is run once per dataset config.)
 
 | Script | Produces |
 |---|---|
@@ -141,7 +174,8 @@ python src/plot_paper_v2.py
 | `build_ablation_tables.py` | `ablation_fps.csv`, `ablation_cube.csv`, `ablation_cube_geometry.csv` |
 | `estimator_autopsy.py` | `estimator_autopsy.csv`, split-half headroom analysis |
 | `sensitivity.py` | `sensitivity_table.csv`, how sharply the result depends on `(c, alpha, k)` |
-| `plot_paper_v2.py`, `plot_ablations.py` | all figures in `results/` |
+| `compute_surfaces.py`, `plot_surfaces.py` | the full validation objective over the `(c, alpha, k)` grid, cached to `results/surfaces/` and drawn as `results/fig_surface_<dataset>.png` |
+| `plot_paper_v2.py`, `plot_presubmission.py`, `plot_paper.py`, `plot_ablations.py`, `plot_method_concept.py` | the paper figures in `results/paper_figures/` and the remaining diagnostics in `results/` |
 
 ---
 
@@ -221,12 +255,14 @@ src/
   paper_stats.py        paired bootstrap CIs, Wilcoxon tests, IoU table
   estimator_autopsy.py  split-half headroom, oracle-threshold regression
   sensitivity.py        flatness of the validation optimum, shared-parameter check
-  plot_*.py             every figure in the paper
+  plot_method_concept.py  Fig. 2, the idea of the rule (analytic sketch)
+  plot_*.py             every other figure in the paper
 predictions/<dataset>/<model>/       best.pt, per-scene .npz, run logs
 calibration/<dataset>/<model>/       per-scene tau and metrics, five standard rules
 calibration_v2/<dataset>/<model>/    quantile, quantile-shrink, per-cube Otsu
 ablations/<dataset>/{fps,cube}/      FPS and cube-size sweeps, same contract
-results/                             all CSV tables and PNG figures
+results/                             all CSV tables and diagnostic figures
+results/paper_figures/               the figures of the paper
 docs/method_theory.md                derivation, coverage argument, shrinkage
 ```
 
@@ -261,16 +297,19 @@ benchmark, cube-size sweep on all four datasets (25/50/75 m outdoors,
 
 Reported as mean per-scene change-class F1 on test scenes.
 
-- **Best overall mean rank**: 2.16 of seven rules over 22 combinations, ahead of
-  temperature scaling (2.75) and the tuned global threshold (2.91); per-cube Otsu is last
+- **Best overall mean rank**: 2.20 of seven rules over 22 combinations, ahead of the
+  tuned global threshold (2.73) and temperature scaling (2.80); per-cube Otsu is last
   (5.36).
 - **Against rules that do not tune a threshold on validation data** (fixed 0.5, Platt,
   isotonic, per-cube Otsu): 17 to 19 wins of 22.
-- **Against the tuned global threshold**: 8 wins, 12 ties, 2 losses at a 0.002 tie band.
-  Wilcoxon p = 0.079 over the benchmark: a trend, **not** a significant global win. Seven
-  individual combinations are significantly positive by paired bootstrap, concentrated on
-  the real photogrammetric data (HKCD ICP +0.043, pooled change-IoU 0.457 -> 0.536;
-  HKCD SiamGCN +0.021) and on miscalibrated models (MS SiamGCN +0.023, MS KPConv +0.012).
+- **Against the tuned global threshold**: 7 wins, 12 ties, 3 losses at a 0.002 tie band.
+  Wilcoxon p = 0.26 over the benchmark: **not** a significant global win. Six individual
+  combinations are significantly positive by paired bootstrap, concentrated on
+  miscalibrated models (MS SiamGCN +0.023, MS KPConv +0.012) and on the real
+  photogrammetric SiamGCN run (HKCD SiamGCN +0.021, pooled change-IoU 0.467 -> 0.500).
+  The three significant losses are a trivial one (MS ICP, -0.001), the training-free ICP
+  baseline on HKCD (-0.005, whose tuned global threshold sits at 0.9995 in the saturated
+  tail of the sigmoid-mapped distances) and a model that failed training (HKCD KPConv).
 - **Per-cube Otsu collapses** where naive local adaptivity is dangerous, on change-sparse
   cubes whose histogram it splits anyway (up to -0.29 F1). Local thresholds need both the
   validation-fitted offset and the shrinkage.
@@ -278,9 +317,9 @@ Reported as mean per-scene change-class F1 on test scenes.
   land below the target's own tuned global threshold. This is a per-dataset procedure
   needing a labelled validation split, not a transferable constant.
 - **The ceiling is characterized, not just the method.** Per-cube oracle headroom is real
-  under split-half validation (48-73% retained on LD, 68-98% on MS, 66-102% on HKCD,
-  84-102% on IndoorCD) and grows as cubes shrink
-  (LD PointNet +0.037 / +0.056 / +0.111 at 75 / 50 / 25 m), yet label-free per-cube
+  under split-half validation (37-73% retained on LD, 77-99% on MS, 77-102% on HKCD,
+  84-101% on IndoorCD) and grows as cubes shrink
+  (LD PointNet +0.036 / +0.056 / +0.115 at 75 / 50 / 25 m), yet label-free per-cube
   statistics predict the oracle threshold poorly (R^2 <= 0.43). IndoorCD marks the scale
   floor where the per-cube population collapses (median 7 cubes per scene, 78% of cubes
   holding no change at all) and local calibration stops paying.

@@ -1,5 +1,5 @@
 """
-plot_paper_v2.py - Draft-v3 paper figures, written to paper/figures/.
+plot_paper_v2.py - Draft-v3 paper figures, written to results/paper_figures/.
 
 Replaces the critical-difference diagram (too much statistical machinery for the
 message) with two plain-language figures, and adds a figure for the R^2
@@ -27,7 +27,7 @@ from scipy.stats import rankdata
 # Same palette/ink as the other paper figures.
 M_COLOR = {"quantile_shrink": "#2a78d6", "f1_optimal": "#1baf7a", "temperature_scaling": "#eda100",
            "platt": "#4a3aa7", "isotonic": "#e87ba4", "fixed_05": "#8a8985", "otsu_cube": "#b0552a"}
-M_LABEL = {"quantile_shrink": "quantile-shrink (ours)", "f1_optimal": "tuned global tau",
+M_LABEL = {"quantile_shrink": "quantile-shrink (ours)", "f1_optimal": "tuned global threshold",
            "temperature_scaling": "temperature", "platt": "Platt", "isotonic": "isotonic",
            "fixed_05": "fixed 0.5", "otsu_cube": "per-cube Otsu"}
 INK, SOFT, GRID = "#0b0b0b", "#52514e", "#eceae6"
@@ -51,9 +51,9 @@ MODEL_LABEL = {"icp_euclidean": "ICP", "siamese_pointnet": "PointNet",
 FAILED = {("urb3dcd_v2_ms", "siamese_pointnet"), ("hkcd", "siamese_kpconv")}
 TIE_EPS = 0.002          # |dF1| below this counts as a tie in the head-to-head record
 
-OUT = os.path.join("paper", "figures")
+OUT = os.path.join("results", "paper_figures")
 
-plt.rcParams.update({"font.size": 9, "axes.edgecolor": SOFT, "axes.labelcolor": INK,
+plt.rcParams.update({"font.size": 9.6, "axes.edgecolor": SOFT, "axes.labelcolor": INK,
                      "xtick.color": SOFT, "ytick.color": SOFT, "figure.facecolor": "white"})
 
 
@@ -104,14 +104,14 @@ def fig_head_to_head(f1):
                         fontweight="bold")
             left += count
     ax.set_yticks(y)
-    ax.set_yticklabels([M_LABEL[b] for b in BASELINES], fontsize=8.5)
+    ax.set_yticklabels([M_LABEL[b] for b in BASELINES], fontsize=9.8)
     ax.invert_yaxis()
     ax.set_xlim(0, len(combos))
-    ax.set_xlabel("number of the 22 model x dataset combinations", fontsize=8.2)
-    ax.set_title("(a)  quantile-shrink against each baseline", fontsize=9.5, color=INK, loc="left")
+    ax.set_xlabel("number of the 22 model x dataset combinations", fontsize=9.4)
+    ax.set_title("(a)  quantile-shrink against each baseline", fontsize=10.9, color=INK, loc="left")
     handles = [plt.Rectangle((0, 0), 1, 1, color=c) for c in (WIN, TIE, LOSS)]
     ax.legend(handles, ["ours better", "tie (< 0.002 F1)", "ours worse"], frameon=False,
-              fontsize=7.8, ncol=3, loc="upper center", bbox_to_anchor=(0.5, -0.30))
+              fontsize=9.0, ncol=3, loc="upper center", bbox_to_anchor=(0.5, -0.30))
     despine(ax)
 
     # --- (b) mean rank -----------------------------------------------------------
@@ -126,13 +126,13 @@ def fig_head_to_head(f1):
     yy = np.arange(len(order))
     ax.barh(yy, vals, height=0.62, color=[M_COLOR[m] for m in order])
     for i, v in enumerate(vals):
-        ax.text(v + 0.08, i, "%.2f" % v, va="center", fontsize=8, color=INK)
+        ax.text(v + 0.08, i, "%.2f" % v, va="center", fontsize=9.2, color=INK)
     ax.set_yticks(yy)
-    ax.set_yticklabels([M_LABEL[m] for m in order], fontsize=8.5)
+    ax.set_yticklabels([M_LABEL[m] for m in order], fontsize=9.8)
     ax.invert_yaxis()
     ax.set_xlim(0, 7.4)
-    ax.set_xlabel("mean rank  (1 = best)", fontsize=8.5)
-    ax.set_title("(b)  average rank of every rule", fontsize=9.5, color=INK, loc="left")
+    ax.set_xlabel("mean rank  (1 = best)", fontsize=9.8)
+    ax.set_title("(b)  average rank of every rule", fontsize=10.9, color=INK, loc="left")
     ax.grid(axis="x", color=GRID, lw=0.7, zorder=0)
     ax.set_axisbelow(True)
     despine(ax)
@@ -177,15 +177,15 @@ def fig_forest():
     for c in counts[:-1]:
         ax.axhline(len(order) - c - 0.5, color=GRID, lw=0.9, zorder=0)
     ax.set_yticks(range(len(order)))
-    ax.set_yticklabels(labels[::-1], fontsize=8.2)
+    ax.set_yticklabels(labels[::-1], fontsize=9.2)
     ax.set_ylim(-0.8, len(order) - 0.2)
     ax.set_xlabel("change in test mean per-scene F1  (quantile-shrink minus tuned global threshold)",
-                  fontsize=8.6)
+                  fontsize=9.6)
     ax.set_title("Where per-cube calibration helps, and by how much\n"
                  "colored = nominally significant at uncorrected p < 0.05 "
                  "(paired bootstrap over test cubes);\n"
                  "gray = indistinguishable from the tuned global threshold",
-                 fontsize=9.2, color=INK)
+                 fontsize=10.3, color=INK)
     ax.grid(axis="x", color=GRID, lw=0.7, zorder=0)
     ax.set_axisbelow(True)
     despine(ax)
@@ -218,10 +218,10 @@ def fig_signal_bound():
             label="headroom fully survives")
     ax.set_xlim(0, lim)
     ax.set_ylim(0, lim)
-    ax.set_xlabel("oracle headroom, in-sample", fontsize=8.4)
-    ax.set_ylabel("oracle headroom, held-out half", fontsize=8.4)
-    ax.set_title("(a)  the signal is real", fontsize=9.3, color=INK, loc="left")
-    ax.legend(frameon=False, fontsize=7.6, loc="upper left")
+    ax.set_xlabel("oracle headroom, in-sample", fontsize=9.4)
+    ax.set_ylabel("oracle headroom, held-out half", fontsize=9.4)
+    ax.set_title("(a)  the signal is real", fontsize=10.4, color=INK, loc="left")
+    ax.legend(frameon=False, fontsize=8.5, loc="upper left")
     ax.grid(color=GRID, lw=0.7, zorder=0)
     ax.set_axisbelow(True)
     despine(ax)
@@ -237,12 +237,12 @@ def fig_signal_bound():
                    edgecolor="white", linewidth=0.6, zorder=3)
         ax.plot([i - 0.26, i + 0.26], [np.mean(vals)] * 2, color=INK, lw=1.6, zorder=4)
     ax.axhline(1.0, color=SOFT, ls="--", lw=1.1, zorder=2)
-    ax.text(3.40, 0.96, "perfect prediction", ha="right", va="top", fontsize=7.4, color=SOFT)
+    ax.text(3.40, 0.96, "perfect prediction", ha="right", va="top", fontsize=8.3, color=SOFT)
     ax.set_xticks(range(len(DS_ORDER)))
-    ax.set_xticklabels([DS_SHORT[d] for d in DS_ORDER], fontsize=8.2)
+    ax.set_xticklabels([DS_SHORT[d] for d in DS_ORDER], fontsize=9.2)
     ax.set_ylim(0, 1.05)
-    ax.set_ylabel("cross-validated R² of the oracle threshold", fontsize=8.4)
-    ax.set_title("(b)  but it is not predictable without labels", fontsize=9.3,
+    ax.set_ylabel("cross-validated R²\nof the oracle threshold", fontsize=9.4)
+    ax.set_title("(b)  but it is not predictable without labels", fontsize=10.4,
                  color=INK, loc="left")
     ax.grid(axis="y", color=GRID, lw=0.7, zorder=0)
     ax.set_axisbelow(True)
@@ -262,7 +262,7 @@ def fig_sensitivity():
     (b) alpha and k can be shared across every pair, only the offset c needs refitting."""
     rows = list(csv.DictReader(open("results/sensitivity_table.csv", newline="")))
     rows.sort(key=lambda r: (DS_ORDER.index(r["dataset"]), MODEL_ORDER.index(r["model"])))
-    fig, axes = plt.subplots(1, 2, figsize=(7.2, 4.0))
+    fig, axes = plt.subplots(1, 2, figsize=(7.2, 4.9))
 
     # --- (a) the same candidates, measured against the tuned global threshold -----
     # Plotting the difference (not the absolute F1) puts every combination on one
@@ -279,17 +279,17 @@ def fig_sensitivity():
     ax.axvline(0.0, color=INK, lw=1.0, zorder=3)
     ax.set_yticks(range(len(rows)))
     ax.set_yticklabels(["%s %s" % (DS_SHORT[r["dataset"]], MODEL_LABEL[r["model"]])
-                        for r in rows], fontsize=6.4)
+                        for r in rows], fontsize=8.8)
     ax.invert_yaxis()
     ax.set_xlim(-0.09, 0.09)
-    ax.set_xlabel("test F1 minus the tuned global threshold", fontsize=8.4)
-    ax.set_title("(a)  the validation optimum is broad", fontsize=9.3, color=INK, loc="left")
+    ax.set_xlabel("test F1 minus the tuned global threshold", fontsize=9.4)
+    ax.set_title("(a)  the validation optimum is broad", fontsize=10.4, color=INK, loc="left")
     handles = [plt.Line2D([], [], color=SOFT, lw=3.0, alpha=0.5,
                           label="candidates within 0.01 val F1 (5-95%)"),
                plt.Line2D([], [], marker="o", ls="", ms=4.5, color=SOFT, label="deployed fit"),
                plt.Line2D([], [], color=INK, lw=1.0, label="tuned global threshold")]
-    ax.legend(handles=handles, frameon=False, fontsize=6.6, ncol=1,
-              loc="upper center", bbox_to_anchor=(0.5, -0.16))
+    ax.legend(handles=handles, frameon=False, fontsize=7.4, ncol=1,
+              loc="upper center", bbox_to_anchor=(0.5, -0.13))
     ax.grid(axis="x", color=GRID, lw=0.7, zorder=0)
     ax.set_axisbelow(True)
     despine(ax)
@@ -307,10 +307,10 @@ def fig_sensitivity():
                    zorder=3, label=DS_SHORT[ds])
     ax.set_xlim(lo, hi)
     ax.set_ylim(lo, hi)
-    ax.set_xlabel("all three scalars fitted per pair", fontsize=8.4)
-    ax.set_ylabel("$\\alpha$ and $k$ shared, only $c$ refitted", fontsize=8.4)
-    ax.set_title("(b)  only the offset needs refitting", fontsize=9.3, color=INK, loc="left")
-    ax.legend(frameon=False, fontsize=7.0, loc="upper left")
+    ax.set_xlabel("all three scalars fitted per pair", fontsize=9.4)
+    ax.set_ylabel("$\\alpha$ and $k$ shared, only $c$ refitted", fontsize=9.4)
+    ax.set_title("(b)  only the offset needs refitting", fontsize=10.4, color=INK, loc="left")
+    ax.legend(frameon=False, fontsize=7.8, loc="upper left")
     ax.grid(color=GRID, lw=0.7, zorder=0)
     ax.set_axisbelow(True)
     despine(ax)
@@ -328,7 +328,7 @@ def main():
     fig_forest()
     fig_signal_bound()
     fig_sensitivity()
-    print("wrote paper/figures/fig_{head_to_head,forest,signal_bound,sensitivity}.png")
+    print("wrote results/paper_figures/fig_{head_to_head,forest,signal_bound,sensitivity}.png")
 
 
 if __name__ == "__main__":

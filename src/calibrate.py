@@ -43,7 +43,10 @@ from diagnose_predictions import f1_from_pred
 
 
 # Same threshold grid the diagnostic sweeps, so f1_optimal's val F1 lines up with its best_global.
-TAU_GRID = np.linspace(0.02, 0.98, 49)
+# 49-point base grid (step 0.02) plus dense tails, so a tuned global threshold is not capped at
+# 0.02 / 0.98 when a model (e.g. the ICP sigmoid) pushes the optimum into the last two percent.
+TAU_GRID = np.unique(np.concatenate([np.linspace(0.02, 0.98, 49),
+                                     [0.001, 0.005, 0.01, 0.015, 0.985, 0.99, 0.995, 0.999, 0.9995, 0.9999]]))
 
 # two_moment fallback: a cube with fewer than this many no-change points has an unstable
 # std and uses the global f1_optimal tau instead (confirmed min_nc for Task 7).

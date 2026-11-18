@@ -151,24 +151,25 @@ def fig_cube_example():
     tau_global, tau_oracle = best["tau_global"], best["tau_oracle"]
     tau_qs_cube = best["tau_qs"]
 
-    fig, ax = plt.subplots(figsize=(7.0, 3.6))
+    fig, ax = plt.subplots(figsize=(6.3, 3.9))
     bins = np.linspace(0, 1, 61)
     ax.hist(s[lab == 0], bins=bins, color="#d8d7d3", label="true no-change points")
     ax.hist(s[lab == 1], bins=bins, color="#9ec5f4", label="true change points")
-    for tau, color, ls, name in [(tau_global, "#8a8985", "--", "global f1_optimal tau = %.2f"),
-                                 (tau_qs_cube, "#2a78d6", "-", "per-cube tau (ours) = %.2f"),
-                                 (tau_oracle, INK, ":", "cube oracle tau = %.2f")]:
+    for tau, color, ls, name in [(tau_global, "#8a8985", "--", "tuned global threshold, τ = %.2f"),
+                                 (tau_qs_cube, "#2a78d6", "-", "per-cube threshold (ours), τ = %.2f"),
+                                 (tau_oracle, INK, ":", "cube oracle threshold, τ = %.2f")]:
         ax.axvline(tau, color=color, ls=ls, lw=1.6, label=name % tau)
     ax.set_yscale("log")
     ax.set_xlabel("model change score P(change)")
     ax.set_ylabel("points per bin (log)")
-    ax.set_title("One real HKCD cube (%s, cube %d): the per-cube threshold adapts to the\n"
-                 "local score distribution where one global threshold cannot" % (model, cube),
-                 fontsize=9.5, color=INK)
-    ax.legend(frameon=False, fontsize=8, loc="upper left")
+    ax.set_title("One real HKCD cube (%s): the per-cube threshold adapts to the\n"
+                 "local score distribution where one global threshold cannot"
+                 % {"siamgcn": "SiamGCN", "icp_euclidean": "ICP"}.get(model, model),
+                 fontsize=9.2, color=INK)
+    ax.legend(frameon=False, fontsize=8.6, ncol=2, loc="upper center", bbox_to_anchor=(0.5, -0.2))
     despine(ax)
     fig.tight_layout()
-    fig.savefig("results/fig_paper_cube_example.png", dpi=600)
+    fig.savefig("results/fig_paper_cube_example.png", dpi=700)
     fig.savefig("results/fig_paper_cube_example.pdf")
     plt.close(fig)
     print("example %s cube %d: tau_global %.3f  tau_ours %.3f  tau_oracle %.3f" % (

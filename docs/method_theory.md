@@ -123,13 +123,17 @@ by w_i^2 at the price of a bias toward q_bar of size (1-w_i)*|q_i - q_bar|;
 for n_i << k the variance reduction dominates. Two limits anchor the family:
 
     k = 0        -> pure per-cube quantile (w_i = 1 whenever n_i > 0);
-    k -> infinity -> tau_i = c + q_bar, a GLOBAL threshold.
+    k -> infinity -> tau_i = c + q_bar, one SCENE-LEVEL threshold shared by all
+                     cubes of the scene (q_bar is the scene's own pooled quantile).
 
-The second limit means the hypothesis family CONTAINS the tuned global
-threshold as a special case. This is why quantile_shrink cannot lose to
-f1_optimal by more than grid resolution plus val-to-test generalization error -
-and why it replaces the hard MIN_NC fallback: the fallback is now the smooth
-k -> infinity end of the same family rather than a discontinuous switch.
+The second limit means the hypothesis family contains a scene-level global
+threshold as a limiting case; a single tuned global threshold (f1_optimal)
+differs from it only by the between-scene variation of q_bar. This is why
+quantile_shrink should lose to f1_optimal essentially only through that
+residual plus val-to-test generalization error (on the benchmark the largest
+such loss on a trained model is 0.005 F1, the ICP baseline on HKCD) - and why it
+replaces the hard MIN_NC fallback: the fallback is now the smooth k -> infinity
+end of the same family rather than a discontinuous switch.
 
 ## 6. Fitting and generalization
 

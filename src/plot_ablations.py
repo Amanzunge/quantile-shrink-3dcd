@@ -200,7 +200,7 @@ def plot_gain_vs_headroom_scatter():
     if not rows:
         print("skip gain/headroom scatter: no ablation CSVs")
         return
-    fig, ax = plt.subplots(figsize=(7.0, 6.0))
+    fig, ax = plt.subplots(figsize=(6.3, 5.0))
     xs_all, ys_all = [], []
     for ds in DS_ORDER:
         pts = [(fnum(r, "oracle_headroom"), fnum(r, "quantile_shrink_gain"))
@@ -213,21 +213,20 @@ def plot_gain_vs_headroom_scatter():
         ax.scatter([p[0] for p in pts], [p[1] for p in pts], s=30, color=DS_COLOR[ds],
                    alpha=0.8, edgecolor="none", label=DS_LABEL[ds], zorder=3)
     hi = max(xs_all) * 1.05 if xs_all else 0.35
-    ax.plot([0, hi], [0, hi], "--", color=SOFT, lw=1, label="full realisation (gain = headroom)")
+    ax.plot([0, hi], [0, hi], "--", color=SOFT, lw=1, label="full realization (gain = headroom)")
     ax.axhline(0.0, color=INK, lw=0.8)
     xa, ya = np.array(xs_all), np.array(ys_all)
     frac_pos = float((ya > 0).mean()) if xa.size else 0.0                  # runs that beat global tau
     sel = xa > 0.02                                                        # ignore ~zero-headroom runs
     med_ratio = float(np.median(ya[sel] / xa[sel])) if sel.any() else float("nan")
-    ax.set_xlabel("per-cube ORACLE headroom  (F1 recoverable over tuned global tau)")
-    ax.set_ylabel("REALISED quantile_shrink gain  (F1 over tuned global tau)")
-    ax.set_title("Signal available vs signal captured  (each point = one model x knob value)\n"
-                 "%.0f%% of runs beat global tau; median captured = %.0f%% of the headroom"
-                 % (100 * frac_pos, 100 * med_ratio), fontsize=10, color=INK)
+    ax.set_xlabel("per-cube oracle headroom  (F1 over the tuned global threshold)")
+    ax.set_ylabel("realized gain of quantile-shrink  (F1 over the tuned global threshold)")
+    print("scatter: %.0f%% of runs above zero; median captured %.1f%% of the headroom"
+          % (100 * frac_pos, 100 * med_ratio))
     style(ax)
-    ax.legend(frameon=False, fontsize=8)
+    ax.legend(frameon=False, fontsize=8.6)
     fig.tight_layout()
-    fig.savefig("results/fig_gain_vs_headroom_scatter.png", dpi=600)
+    fig.savefig("results/fig_gain_vs_headroom_scatter.png", dpi=700)
     fig.savefig("results/fig_gain_vs_headroom_scatter.pdf")
     plt.close(fig)
     print("wrote results/fig_gain_vs_headroom_scatter.png")

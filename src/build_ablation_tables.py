@@ -83,7 +83,7 @@ CUBE_SWEEP = {
 }
 
 # Same threshold grid the diagnostic uses for the per-cube oracle sweep.
-ORACLE_TAUS = np.linspace(0.02, 0.98, 49)
+from calibrate import TAU_GRID as ORACLE_TAUS   # one threshold grid everywhere (base 49 + tails)
 
 
 def split_of_dataset(config_path):

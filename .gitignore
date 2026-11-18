@@ -53,3 +53,13 @@ desktop.ini
 .DS_Store
 .vscode/
 .idea/
+
+# ---------------------------------------------------------------------------
+# Manuscript drafts, submission folders and the Serbian thesis method note
+# (working material, not part of the released code).
+# ---------------------------------------------------------------------------
+docs/Rad/
+docs/method_note/
+docs/*.docx
+logs_regrid/
+results/paper_figures/*.pdf
