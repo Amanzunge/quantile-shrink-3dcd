@@ -179,13 +179,9 @@ def fig_forest():
     ax.set_yticks(range(len(order)))
     ax.set_yticklabels(labels[::-1], fontsize=9.2)
     ax.set_ylim(-0.8, len(order) - 0.2)
-    ax.set_xlabel("change in test mean per-scene F1  (quantile-shrink minus tuned global threshold)",
+    ax.set_xlabel("change in test mean per-scene F1\n(quantile-shrink minus tuned global threshold)",
                   fontsize=9.6)
-    ax.set_title("Where per-cube calibration helps, and by how much\n"
-                 "colored = nominally significant at uncorrected p < 0.05 "
-                 "(paired bootstrap over test cubes);\n"
-                 "gray = indistinguishable from the tuned global threshold",
-                 fontsize=10.3, color=INK)
+    # No title inside the figure (Springer artwork rule); the caption carries it.
     ax.grid(axis="x", color=GRID, lw=0.7, zorder=0)
     ax.set_axisbelow(True)
     despine(ax)

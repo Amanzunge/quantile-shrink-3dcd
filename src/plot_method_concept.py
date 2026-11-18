@@ -199,10 +199,8 @@ def main():
     score_axis(ax, [(tau_i, r"$\tau_i$")], show_half=False)
     ax.set_title(r"4. offset $c$, threshold $\tau_i$, decision", fontsize=8)
 
-    fig.text(0.005, 0.965, r"(a) one shared threshold $\tau$ gives different local false-positive rates; "
-             r"one shared level $\alpha$ gives the same rate $1-\alpha$ in every cube", ha="left", va="center", fontsize=8.2)
-    fig.text(0.005, 0.455, r"(b) quantile-shrink for one cube: the threshold $\tau_i$ is read from the cube's own "
-             r"predicted no-change scores $N_i$, shrunk toward the scene, and offset by $c$", ha="left", va="center", fontsize=8.2)
+    fig.text(0.005, 0.965, "(a)", ha="left", va="center", fontsize=9, fontweight="bold")
+    fig.text(0.005, 0.455, "(b)", ha="left", va="center", fontsize=9, fontweight="bold")
     fig.legend(handles=[Patch(color=TEAL, alpha=0.85, label="truly unchanged points"),
                         Patch(color=CORAL, alpha=0.9, label="changed points / above threshold"),
                         Patch(color=GRAY_L, alpha=0.8, label=r"visible sample $N_i$ ($s_p \leq 1/2$, no labels)")],

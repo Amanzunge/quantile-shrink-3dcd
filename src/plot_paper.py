@@ -162,10 +162,7 @@ def fig_cube_example():
     ax.set_yscale("log")
     ax.set_xlabel("model change score P(change)")
     ax.set_ylabel("points per bin (log)")
-    ax.set_title("One real HKCD cube (%s): the per-cube threshold adapts to the\n"
-                 "local score distribution where one global threshold cannot"
-                 % {"siamgcn": "SiamGCN", "icp_euclidean": "ICP"}.get(model, model),
-                 fontsize=9.2, color=INK)
+    # No title inside the figure (Springer artwork rule); the caption carries it.
     ax.legend(frameon=False, fontsize=8.6, ncol=2, loc="upper center", bbox_to_anchor=(0.5, -0.2))
     despine(ax)
     fig.tight_layout()
