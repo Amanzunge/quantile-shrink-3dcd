@@ -186,7 +186,7 @@ def fig_forest():
     ax.set_axisbelow(True)
     despine(ax)
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, "fig_forest.png"), dpi=600, bbox_inches="tight")
+    fig.savefig(os.path.join(OUT, "fig_forest.png"), dpi=720, bbox_inches="tight")
     fig.savefig(os.path.join(OUT, "fig_forest.pdf"), bbox_inches="tight")
     plt.close(fig)
 

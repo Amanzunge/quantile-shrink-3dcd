@@ -207,7 +207,7 @@ def main():
                loc="lower center", ncol=3, frameon=False, fontsize=7.8, bbox_to_anchor=(0.5, -0.045),
                handlelength=1.2, columnspacing=1.5)
     out = os.path.join(OUT_DIR, "fig_method_concept.png")
-    fig.savefig(out, dpi=600, bbox_inches="tight", pad_inches=0.03)
+    fig.savefig(out, dpi=720, bbox_inches="tight", pad_inches=0.03)
     print("wrote", out)
 
 
